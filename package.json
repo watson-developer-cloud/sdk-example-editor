@@ -1,33 +1,61 @@
 {
-  "name": "sdk-example-editor",
+  "name": "@watson/sdk-example-editor",
   "version": "0.0.1",
   "description": "Web editor to write SDK examples in a swagger extension",
   "main": "index.js",
   "scripts": {
+    "commit": "git-cz",
     "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "validate": "npm ls",
+    "lint": "eslint .",
+    "autofix": "eslint . --fix",
+    "test": "npm run lint"
   },
   "author": "IBM Corp",
   "license": "MIT",
-  "devDependencies": {
+  "engines": {
+    "node": ">=8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/watson-developer-cloud/sdk-example-editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/watson-developer-cloud/sdk-example-editor/issues"
+  },
+  "dependencies": {
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.2.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "carbon-components-react": "^6.60.1",
+    "carbon-components": "^9.61.1",
+    "carbon-icons": "^7.0.7",
     "css-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "react-dom": "^16.6.3",
     "react": "^16.6.3",
     "style-loader": "^0.23.1",
     "webpack-cli": "^3.1.2",
-    "webpack": "^4.27.1",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.10",
+    "webpack": "^4.27.1"
   },
-  "dependencies": {
-    "carbon-components": "^9.61.1",
-    "carbon-components-react": "^6.60.1",
-    "carbon-icons": "^7.0.7"
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "devDependencies": {
+    "commitizen": "^3.0.5",
+    "cz-conventional-changelog": "^2.1.0",
+    "eslint": "^5.10.0",
+    "eslint-plugin-react": "^7.11.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
