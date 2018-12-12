@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Select, SelectItem} from 'carbon-components-react';
+import {getLanguages} from '../selectors/language-selectors';
 
 import './LanguageContainer.css';
 
-export class LanguageContainer extends Component {
+class LanguageContainer extends Component {
   render() {
+    const {languages} = this.props;
+    console.log(languages);
+
     return (
       <div className="language-container bx--tile">
         <Select
@@ -24,3 +29,9 @@ export class LanguageContainer extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  languages: getLanguages(state),
+});
+
+export default connect(mapStateToProps)(LanguageContainer);
