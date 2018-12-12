@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button} from 'carbon-components-react';
-import './styles.css';
+import './UploadButtonContainer.css';
 
 export class UploadButtonContainer extends Component {
   render() {

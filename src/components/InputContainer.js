@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {FileUploader, TextInput} from 'carbon-components-react';
-import '../../node_modules/carbon-components/css/carbon-components.css';
-import './styles.css';
+import './InputContainer.css';
 
 export class InputContainer extends Component {
   constructor(props) {
