@@ -8,6 +8,6 @@ export const getLanguages = createSelector(
     if (swagger && swagger.info) {
       return swagger.info['x-sdk-supported-languages'];
     }
-    return null;
+    return [];
   },
 );

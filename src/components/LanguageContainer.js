@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Select, SelectItem} from 'carbon-components-react';
 import {getLanguages} from '../selectors/language-selectors';
+import * as actions from '../ducks';
 
 import './LanguageContainer.css';
 
 class LanguageContainer extends Component {
   render() {
-    const {languages} = this.props;
-    console.log(languages);
+    const {languages, selectLanguage} = this.props;
 
     return (
       <div className="language-container bx--tile">
@@ -16,14 +16,22 @@ class LanguageContainer extends Component {
           hideLabel={false}
           invalidText="A valid value is required"
           helperText="Select the programming language to work with."
-          onChange={() => {
-            console.log('programing language change');
+          onChange={(event) => {
+            selectLanguage(event.target.value)
           }}
           id="programming-language"
           defaultValue="java"
         >
-          <SelectItem value="java" text="Java" />
-          <SelectItem value="node" text="Node" />
+          {
+            languages.map(language => (
+              <SelectItem
+                key={language}
+                text={language.charAt(0).toUpperCase() + language.slice(1)}
+                value={language}
+              />
+            ))
+          }
+          
         </Select>
       </div>
     );
@@ -34,4 +42,8 @@ const mapStateToProps = state => ({
   languages: getLanguages(state),
 });
 
-export default connect(mapStateToProps)(LanguageContainer);
+const mapDispatchToProps = {
+  selectLanguage: actions.selectLanguage,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LanguageContainer);
