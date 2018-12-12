@@ -1,29 +1,28 @@
 {
-  "name": "webpack-in-plain-english",
-  "version": "1.0.0",
-  "description": "a webpack config intro",
+  "name": "sdk-example-editors",
+  "version": "0.0.1",
+  "description": "Web editor to write SDK examples in a swagger extension",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production"
   },
-  "author": "Grant Glidewell <grant.glidewell@zesty.io>",
-  "license": "ISC",
-  "dependencies": {
-    "css-loader": "^1.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "npm": "^6.3.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "style-loader": "^0.21.0"
-  },
+  "author": "IBM Corp",
+  "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "webpack": "^4.16.4",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "react-dom": "^16.6.3",
+    "react": "^16.6.3",
+    "style-loader": "^0.23.1",
+    "webpack-cli": "^3.1.2",
+    "webpack": "^4.27.1",
+    "webpack-dev-server": "^3.1.10"
   }
 }
