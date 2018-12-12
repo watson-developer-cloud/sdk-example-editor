@@ -1,0 +1,28 @@
+{
+  "name": "sdk-example-editors",
+  "version": "0.0.1",
+  "description": "Web editor to write SDK examples in a swagger extension",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production"
+  },
+  "author": "IBM Corp",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "react-dom": "^16.6.3",
+    "react": "^16.6.3",
+    "style-loader": "^0.23.1",
+    "webpack-cli": "^3.1.2",
+    "webpack": "^4.27.1",
+    "webpack-dev-server": "^3.1.10"
+  }
+}
