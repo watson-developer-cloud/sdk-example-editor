@@ -33,7 +33,11 @@ export class InputContainer extends Component {
   render() {
     return (
       <div className="input-container">
-        <FileUploader buttonLabel="Select Swagger file" filenameStatus="edit" />
+        <FileUploader
+          buttonLabel="Select Swagger file"
+          filenameStatus="edit"
+          onChange={this.handleFileChange}
+        />
         <TextInput
           className="url-input"
           id="url-input"
