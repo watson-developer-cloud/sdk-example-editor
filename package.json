@@ -1,5 +1,5 @@
 {
-  "name": "sdk-example-editors",
+  "name": "sdk-example-editor",
   "version": "0.0.1",
   "description": "Web editor to write SDK examples in a swagger extension",
   "main": "index.js",
