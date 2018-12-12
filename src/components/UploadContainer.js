@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {InputContainer} from './InputContainer';
+import InputContainer from './InputContainer';
 import {UploadButtonContainer} from './UploadButtonContainer';
 import './UploadContainer.css';
 

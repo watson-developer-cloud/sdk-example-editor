@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import {FileUploader, TextInput} from 'carbon-components-react';
 import './InputContainer.css';
+import * as actions from '../ducks';
 
-export class InputContainer extends Component {
+class InputContainer extends Component {
   constructor(props) {
     super(props);
     this.handleFileChange = this.handleFileChange.bind(this);
@@ -15,7 +17,7 @@ export class InputContainer extends Component {
     this.readFileContent(file)
       .then((content) => {
         fileContents = JSON.parse(content);
-        console.log(fileContents);
+        this.props.updateSwagger(fileContents);
       })
       .catch(error => console.log(error));
   }
@@ -46,3 +48,9 @@ export class InputContainer extends Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  updateSwagger: actions.updateSwagger,
+};
+
+export default connect(null, mapDispatchToProps)(InputContainer);
