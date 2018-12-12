@@ -1,57 +1,48 @@
 import React, {Component} from 'react';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import {CodeSnippet} from 'carbon-components-react';
+import {connect} from 'react-redux';
+import {getCodeExamples, getSelectedLanguage} from '../selectors';
+import * as actions from '../ducks';
+import ExampleCode from './ExampleCode';
 
 import './ExamplesContainer.css';
 
-export class ExamplesContainer extends Component {
+class ExamplesContainer extends Component {
   constructor(props) {
     super(props);
-    this.codeSnippet = `
-IamOptions iamOptions = new IamOptions.Builder().apiKey("{apikey}").build();
-Assistant service = new Assistant("2018-11-08", iamOptions);
-
-MessageInput input = new MessageInput.Builder()
-  .messageType("text")
-  .text("Hello")
-  .build();
-
-MessageOptions options = new MessageOptions.Builder("{assistant_id}", "{session_id}")
-  .input(input)
-  .build();
-
-MessageResponse response = service.message(options).execute();
-
-System.out.println(response);
-`;
   }
   render() {
-    console.log(this.codeSnippet);
+    const {codeExamples, selectedLanguage} = this.props;
+
     return (
-      <div className="bx--tile">
-        <div className="bx--row">
-          <div className="bx--col-xs-12 bx--col-md-12">
-            <h3>message</h3>
-          </div>
-        </div>
-        <div className="bx--row">
-          <div className="bx--col-xs-12 bx--col-md-12">
-            <p>Send user input to an assistant.</p>
-          </div>
-        </div>
-        <div className="bx--row">
-          <div className="bx--col-xs-12 bx--col-md-6">
-            <CodeSnippet type="multi" feedback="Copied">
-              {this.codeSnippet}
-            </CodeSnippet>
-          </div>
-          <div className="bx--col-xs-12 bx--col-md-6">
-            <SyntaxHighlighter language="javascript">
-              {this.codeSnippet}
-            </SyntaxHighlighter>
-          </div>
-        </div>
+      <div className="bx--row">
+        {codeExamples.map(c => (
+          <ExampleCode
+            key={c.operationId}
+            {...c}
+            onCodeChange={newCodeExample =>
+              updateExample(c.operationId, selectedLanguage, newCodeExample)
+            }
+          />
+        ))}
       </div>
     );
   }
 }
+
+ExamplesContainer.defaultProps = {
+  codeExamples: [],
+};
+
+const mapStateToProps = state => ({
+  codeExamples: getCodeExamples(state),
+  selectedLanguage: getSelectedLanguage(state),
+});
+
+const mapDispatchToProps = {
+  updateSwagger: actions.updateSwagger,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ExamplesContainer);

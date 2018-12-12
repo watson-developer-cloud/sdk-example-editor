@@ -18,7 +18,7 @@ export default function reducer(state = defaultState, action) {
     case SELECT_LANGUAGE: {
       return {
         ...state,
-        language: action.language,
+        selectedLanguage: action.selectedLanguage,
       };
     }
     default: {
@@ -32,7 +32,7 @@ export const updateSwagger = swagger => ({
   swagger,
 });
 
-export const selectLanguage = language => ({
+export const selectLanguage = selectedLanguage => ({
   type: SELECT_LANGUAGE,
-  language,
+  selectedLanguage,
 });
