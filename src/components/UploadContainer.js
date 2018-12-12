@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {InputContainer} from './InputContainer';
+import InputContainer from './InputContainer';
 import {UploadButtonContainer} from './UploadButtonContainer';
 import './UploadContainer.css';
 
@@ -11,6 +11,5 @@ export class UploadContainer extends Component {
         <UploadButtonContainer />
       </div>
     );
-    // has input container and submit button horizontally
   }
 }

@@ -1,23 +1,16 @@
 /* eslint-disable indent */
-export const HIDE_LEFT_NAV = 'APPLICATION/HIDE_LEFT_NAV';
-export const SHOW_LEFT_NAV = 'APPLICATION/SHOW_LEFT_NAV';
+export const UPDATE_SWAGGER = 'UPDATE_SWAGGER';
 
 export const defaultState = {
-  isLeftNavOpen: true,
+  swagger: null,
 };
 
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
-    case HIDE_LEFT_NAV: {
+    case UPDATE_SWAGGER: {
       return {
         ...state,
-        isLeftNavOpen: false,
-      };
-    }
-    case SHOW_LEFT_NAV: {
-      return {
-        ...state,
-        isLeftNavOpen: true,
+        swagger: action.swagger,
       };
     }
     default: {
@@ -26,10 +19,7 @@ export default function reducer(state = defaultState, action) {
   }
 }
 
-export const hideLeftNav = () => ({
-  type: HIDE_LEFT_NAV,
-});
-
-export const showLeftNav = () => ({
-  type: SHOW_LEFT_NAV,
+export const updateSwagger = swagger => ({
+  type: UPDATE_SWAGGER,
+  swagger,
 });

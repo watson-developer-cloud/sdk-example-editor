@@ -2,21 +2,3 @@
   display: flex;
   padding: 2rem;
 }
-
-.input-container {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
-.upload-button-container {
-  align-items: center;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#upload-button {
-  width: 20%;
-}
