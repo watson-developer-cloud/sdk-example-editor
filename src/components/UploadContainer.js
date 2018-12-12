@@ -11,6 +11,5 @@ export class UploadContainer extends Component {
         <UploadButtonContainer/>
       </div>
     );
-    // has input container and submit button horizontally
   }
 }
