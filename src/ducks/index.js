@@ -19,7 +19,7 @@ export default function reducer(state = defaultState, action) {
   }
 }
 
-export const updateSwagger = (swagger) => ({
+export const updateSwagger = swagger => ({
   type: UPDATE_SWAGGER,
   swagger,
 });
