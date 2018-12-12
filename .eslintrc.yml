@@ -1,12 +1,13 @@
 env:
   browser: true
   es6: true
-extends: 'eslint:recommended'
+extends: ["plugin:prettier/recommended", "prettier/react"]
 parserOptions:
   ecmaFeatures:
     jsx: true
   ecmaVersion: 2018
   sourceType: module
+parser: babel-eslint
 plugins:
   - react
 rules:
@@ -22,3 +23,8 @@ rules:
   semi:
     - error
     - always
+  prettier/prettier:
+    - error
+    - singleQuote: true
+      trailingComma: all
+      bracketSpacing: false
