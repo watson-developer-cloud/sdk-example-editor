@@ -17,9 +17,11 @@ export const getEndpointExamples = createSelector(
   [getSwagger, getSelectedLanguage],
   (swagger, selectedLanguage) => {
     const endpointExamples = [];
+
     if (!swagger || !selectedLanguage) {
       return endpointExamples;
     }
+
     Object.entries(swagger.paths).forEach(([path, pathInfo]) => {
       Object.entries(pathInfo).forEach(([method, methodInfo]) => {
         const languageExamples =
@@ -29,14 +31,16 @@ export const getEndpointExamples = createSelector(
         if (languageExamples) {
           languageExamples.forEach(example => {
             const exampleName = example['name'];
-            const exampleCode = JSON.stringify(
-              example['example'][0]['source'],
-              null,
-              2,
-            );
+            const codeArray = example['example'][0]['source'];
+            const exampleCode = JSON.stringify(codeArray, null, 2);
+            const strippedCode = codeArray
+              .map(line => line.replace('\n', '').replace('\\', ''))
+              .join('\n');
+
             examples.push({
               name: exampleName,
               code: exampleCode,
+              strippedCode: strippedCode,
             });
           });
         }

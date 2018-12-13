@@ -29,6 +29,8 @@ class ExamplesContainer extends Component {
                 key={example.name}
                 code={example.code}
                 name={example.name}
+                strippedCode={example.strippedCode}
+                language={selectedLanguage}
                 onCodeChange={newCodeExample =>
                   updateExample(
                     endpoint.path,
