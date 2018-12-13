@@ -7,6 +7,15 @@ import * as actions from '../ducks';
 import './LanguageContainer.css';
 
 class LanguageContainer extends Component {
+  componentDidUpdate(prevProps) {
+    const {languages, selectLanguage} = this.props;
+
+    // when we first get languages, default to first
+    if (prevProps.languages.length === 0 && languages.length > 0) {
+      selectLanguage(languages[0]);
+    }
+  }
+
   render() {
     const {languages, selectLanguage} = this.props;
 
