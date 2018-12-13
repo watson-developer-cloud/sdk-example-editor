@@ -18,19 +18,28 @@ export const getCodeExamples = createSelector(
   [getSwagger, getSelectedLanguage],
   (swagger, selectedLanguage) => {
     const codeExamples = [];
-    console.log(swagger, selectedLanguage);
     if (!swagger || !selectedLanguage) {
       return codeExamples;
     }
     Object.entries(swagger.paths).forEach(([_, path]) => {
       Object.entries(path).forEach(([_, operation]) => {
-        const example = {
-          operationId: operation.operationId,
-          code: JSON.stringify(
-            operation['x-sdk-operations']['request-examples'][selectedLanguage],
+        const languageExamples = operation['x-sdk-operations']['request-examples'][selectedLanguage];
+        let exampleName = '';
+        let exampleCode = '';
+
+        if (languageExamples && languageExamples[0]) {
+          exampleName = languageExamples[0]['name'];
+          exampleCode = JSON.stringify(
+            languageExamples[0]['example'][0]['source'],
             null,
             2,
-          ),
+          );
+        }
+
+        const example = {
+          operationId: operation.operationId,
+          name: exampleName,
+          code: exampleCode,
           summary: operation.summary,
         };
         codeExamples.push(example);
