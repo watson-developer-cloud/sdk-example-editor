@@ -1,7 +1,6 @@
 import {createSelector} from 'reselect';
 
 export const getSwagger = state => state.swagger;
-
 export const getSelectedLanguage = state => state.selectedLanguage;
 
 export const getLanguages = createSelector(
@@ -21,9 +20,9 @@ export const getCodeExamples = createSelector(
     if (!swagger || !selectedLanguage) {
       return codeExamples;
     }
-    Object.entries(swagger.paths).forEach(([_, path]) => {
-      Object.entries(path).forEach(([_, operation]) => {
-        const languageExamples = operation['x-sdk-operations']['request-examples'][selectedLanguage];
+    Object.entries(swagger.paths).forEach(([path, pathInfo]) => {
+      Object.entries(pathInfo).forEach(([method, methodInfo]) => {
+        const languageExamples = methodInfo['x-sdk-operations']['request-examples'][selectedLanguage];
         let exampleName = '';
         let exampleCode = '';
 
@@ -37,10 +36,12 @@ export const getCodeExamples = createSelector(
         }
 
         const example = {
-          operationId: operation.operationId,
+          path,
+          method,
+          operationId: methodInfo.operationId,
           name: exampleName,
           code: exampleCode,
-          summary: operation.summary,
+          summary: methodInfo.summary,
         };
         codeExamples.push(example);
       });

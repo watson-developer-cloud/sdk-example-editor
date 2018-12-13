@@ -11,7 +11,7 @@ class ExamplesContainer extends Component {
     super(props);
   }
   render() {
-    const {codeExamples, selectedLanguage} = this.props;
+    const {codeExamples, selectedLanguage, updateExample} = this.props;
 
     return (
       <div className="bx--row">
@@ -20,7 +20,7 @@ class ExamplesContainer extends Component {
             key={c.operationId}
             {...c}
             onCodeChange={newCodeExample =>
-              updateExample(c.operationId, selectedLanguage, newCodeExample)
+              updateExample(c.path, c.method, selectedLanguage, newCodeExample.target.value)
             }
           />
         ))}
@@ -39,6 +39,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  updateExample: actions.updateExample,
   updateSwagger: actions.updateSwagger,
 };
 

@@ -17,7 +17,7 @@ const ExampleCode = ({code, operationId, summary, language, onCodeChange}) => {
           placeholder="Type code snippet here..."
           cols={100}
           rows={20}
-          onCodeChange={onCodeChange}
+          onChange={onCodeChange}
           value={code}
         />
       </div>

@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 export const UPDATE_SWAGGER = 'UPDATE_SWAGGER';
 export const SELECT_LANGUAGE = 'SELECT_LANGUAGE';
+export const UPDATE_EXAMPLE = 'UPDATE_EXAMPLE';
 
 export const defaultState = {
   selectedLanguage: null,
@@ -21,6 +22,15 @@ export default function reducer(state = defaultState, action) {
         selectedLanguage: action.selectedLanguage,
       };
     }
+    case UPDATE_EXAMPLE: {
+      let updatedSwagger = state.swagger;
+      //console.log(updatedSwagger);
+      updatedSwagger.paths[action.path][action.method]['x-sdk-operations']['request-examples'][action.language][0]['example'][0]['source'] = action.newCode;
+      return {
+        ...state,
+        swagger: updatedSwagger,
+      };
+    }
     default: {
       return state;
     }
@@ -35,4 +45,12 @@ export const updateSwagger = swagger => ({
 export const selectLanguage = selectedLanguage => ({
   type: SELECT_LANGUAGE,
   selectedLanguage,
+});
+
+export const updateExample = (path, method, language, newCode) => ({
+  type: UPDATE_EXAMPLE,
+  path,
+  method,
+  language,
+  newCode,
 });
