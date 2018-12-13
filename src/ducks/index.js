@@ -26,11 +26,40 @@ export default function reducer(state = defaultState, action) {
     }
     case UPDATE_EXAMPLE: {
       let updatedSwagger = Object.assign({}, state.swagger);
-      updatedSwagger.paths[action.path][action.method]['x-sdk-operations'][
-        'request-examples'
-      ][action.language][0]['example'][0]['source'] = convertToJSON(
+      let requestExamples =
+        updatedSwagger.paths[action.path][action.method]['x-sdk-operations'][
+          'request-examples'
+        ];
+
+      // no example is defined for this language, so we need to add some surrounding JSON first
+      if (!requestExamples[action.language]) {
+        requestExamples = {
+          ...requestExamples,
+          [action.language]: [],
+        };
+      }
+      let languageExamples = requestExamples[action.language];
+
+      // another case of a new example, so we have to do a similar thing to above
+      if (languageExamples.length === 0) {
+        languageExamples.push({
+          name: 'Example request',
+          example: [
+            {
+              type: 'code',
+              source: [],
+            },
+          ],
+        });
+      }
+
+      languageExamples[0]['example'][0]['source'] = convertToJSON(
         action.newCode,
       );
+      updatedSwagger.paths[action.path][action.method]['x-sdk-operations'][
+        'request-examples'
+      ][action.language] = languageExamples;
+
       return {
         ...state,
         swagger: updatedSwagger,
