@@ -13,39 +13,53 @@ export const getLanguages = createSelector(
   },
 );
 
-export const getCodeExamples = createSelector(
+export const getEndpointExamples = createSelector(
   [getSwagger, getSelectedLanguage],
   (swagger, selectedLanguage) => {
-    const codeExamples = [];
+    const endpointExamples = [];
     if (!swagger || !selectedLanguage) {
-      return codeExamples;
+      return endpointExamples;
     }
     Object.entries(swagger.paths).forEach(([path, pathInfo]) => {
       Object.entries(pathInfo).forEach(([method, methodInfo]) => {
-        const languageExamples = methodInfo['x-sdk-operations']['request-examples'][selectedLanguage];
-        let exampleName = '';
-        let exampleCode = '';
+        const languageExamples =
+          methodInfo['x-sdk-operations']['request-examples'][selectedLanguage];
+        let examples = [];
 
-        if (languageExamples && languageExamples[0]) {
-          exampleName = languageExamples[0]['name'];
-          exampleCode = JSON.stringify(
-            languageExamples[0]['example'][0]['source'],
-            null,
-            2,
-          );
+        if (languageExamples) {
+          languageExamples.forEach(example => {
+            const exampleName = example['name'];
+            const exampleCode = JSON.stringify(
+              example['example'][0]['source'],
+              null,
+              2,
+            );
+            examples.push({
+              name: exampleName,
+              code: exampleCode,
+            });
+          });
         }
 
-        const example = {
+        // show blank example for user to add a new one in the
+        // case there's nothing there
+        if (examples.length === 0) {
+          examples.push({
+            name: 'none',
+            code: '',
+          });
+        }
+
+        const endpoint = {
           path,
           method,
           operationId: methodInfo.operationId,
-          name: exampleName,
-          code: exampleCode,
           summary: methodInfo.summary,
+          examples,
         };
-        codeExamples.push(example);
+        endpointExamples.push(endpoint);
       });
     });
-    return codeExamples;
+    return endpointExamples;
   },
 );

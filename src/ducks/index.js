@@ -25,7 +25,9 @@ export default function reducer(state = defaultState, action) {
     case UPDATE_EXAMPLE: {
       let updatedSwagger = state.swagger;
       //console.log(updatedSwagger);
-      updatedSwagger.paths[action.path][action.method]['x-sdk-operations']['request-examples'][action.language][0]['example'][0]['source'] = action.newCode;
+      updatedSwagger.paths[action.path][action.method]['x-sdk-operations'][
+        'request-examples'
+      ][action.language][0]['example'][0]['source'] = action.newCode;
       return {
         ...state,
         swagger: updatedSwagger,

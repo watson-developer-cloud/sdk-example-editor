@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getCodeExamples, getSelectedLanguage} from '../selectors';
+import {getEndpointExamples, getSelectedLanguage} from '../selectors';
 import * as actions from '../ducks';
 import ExampleCode from './ExampleCode';
 
@@ -11,18 +11,35 @@ class ExamplesContainer extends Component {
     super(props);
   }
   render() {
-    const {codeExamples, selectedLanguage, updateExample} = this.props;
+    const {endpointExamples, selectedLanguage, updateExample} = this.props;
 
     return (
-      <div className="bx--row">
-        {codeExamples.map(c => (
-          <ExampleCode
-            key={c.operationId}
-            {...c}
-            onCodeChange={newCodeExample =>
-              updateExample(c.path, c.method, selectedLanguage, newCodeExample.target.value)
-            }
-          />
+      <div className="examples-container">
+        {endpointExamples.map(endpoint => (
+          <div
+            className="examples-container__endpoint bx--tile"
+            key={endpoint.operationId}
+          >
+            <div className="endpoint-description">
+              <h2>{endpoint.operationId}</h2>
+              <h3>{endpoint.summary}</h3>
+            </div>
+            {endpoint.examples.map(example => (
+              <ExampleCode
+                key={example.name}
+                code={example.code}
+                name={example.name}
+                onCodeChange={newCodeExample =>
+                  updateExample(
+                    endpoint.path,
+                    endpoint.method,
+                    selectedLanguage,
+                    newCodeExample.target.value,
+                  )
+                }
+              />
+            ))}
+          </div>
         ))}
       </div>
     );
@@ -30,11 +47,11 @@ class ExamplesContainer extends Component {
 }
 
 ExamplesContainer.defaultProps = {
-  codeExamples: [],
+  endpointExamples: [],
 };
 
 const mapStateToProps = state => ({
-  codeExamples: getCodeExamples(state),
+  endpointExamples: getEndpointExamples(state),
   selectedLanguage: getSelectedLanguage(state),
 });
 

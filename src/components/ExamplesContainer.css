@@ -1,3 +1,14 @@
-.example-container--code {
-  height: 100%;
+.examples-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.examples-container__endpoint {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.endpoint-description {
+  margin-bottom: 1rem;
 }
