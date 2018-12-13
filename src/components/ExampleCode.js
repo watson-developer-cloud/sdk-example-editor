@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {TextArea} from 'carbon-components-react';
 import {solarizedDark} from 'react-syntax-highlighter/dist/styles/hljs';
-
+import {convertToDisplayString} from '../utils/utils';
 import './ExampleCode.css';
 
-const ExampleCode = ({name, code, strippedCode, language, onCodeChange}) => {
+const ExampleCode = ({name, code, language, onCodeChange}) => {
   return (
     <div className="endpoint-example">
       <p>{name}</p>
@@ -19,7 +19,7 @@ const ExampleCode = ({name, code, strippedCode, language, onCodeChange}) => {
             cols={100}
             rows={20}
             onChange={onCodeChange}
-            value={code}
+            value={convertToDisplayString(code)}
           />
         </div>
         <div className="result-area">
@@ -28,7 +28,7 @@ const ExampleCode = ({name, code, strippedCode, language, onCodeChange}) => {
             language={language}
             style={solarizedDark}
           >
-            {strippedCode}
+            {convertToDisplayString(code)}
           </SyntaxHighlighter>
         </div>
       </div>
@@ -37,9 +37,8 @@ const ExampleCode = ({name, code, strippedCode, language, onCodeChange}) => {
 };
 
 ExampleCode.defaultProps = {
-  code: '<p></p>',
+  code: [],
   language: 'node',
-  strippedCode: '',
   updateExample: () => {},
 };
 

@@ -1,3 +1,5 @@
+import {convertToJSON} from '../utils/utils';
+
 /* eslint-disable indent */
 export const UPDATE_SWAGGER = 'UPDATE_SWAGGER';
 export const SELECT_LANGUAGE = 'SELECT_LANGUAGE';
@@ -23,11 +25,12 @@ export default function reducer(state = defaultState, action) {
       };
     }
     case UPDATE_EXAMPLE: {
-      let updatedSwagger = state.swagger;
-      //console.log(updatedSwagger);
+      let updatedSwagger = Object.assign({}, state.swagger);
       updatedSwagger.paths[action.path][action.method]['x-sdk-operations'][
         'request-examples'
-      ][action.language][0]['example'][0]['source'] = action.newCode;
+      ][action.language][0]['example'][0]['source'] = convertToJSON(
+        action.newCode,
+      );
       return {
         ...state,
         swagger: updatedSwagger,

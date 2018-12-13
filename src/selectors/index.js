@@ -32,15 +32,10 @@ export const getEndpointExamples = createSelector(
           languageExamples.forEach(example => {
             const exampleName = example['name'];
             const codeArray = example['example'][0]['source'];
-            const exampleCode = JSON.stringify(codeArray, null, 2);
-            const strippedCode = codeArray
-              .map(line => line.replace('\n', '').replace('\\', ''))
-              .join('\n');
 
             examples.push({
               name: exampleName,
-              code: exampleCode,
-              strippedCode: strippedCode,
+              code: codeArray,
             });
           });
         }
@@ -50,7 +45,7 @@ export const getEndpointExamples = createSelector(
         if (examples.length === 0) {
           examples.push({
             name: 'none',
-            code: '',
+            code: [],
           });
         }
 
