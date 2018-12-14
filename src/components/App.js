@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {UploadContainer} from './UploadContainer';
 import ExamplesContainer from './ExamplesContainer';
-import {ExportContainer} from './ExportContainer';
+import ExportContainer from './ExportContainer';
 import LanguageContainer from './LanguageContainer';
 import '../../node_modules/carbon-components/css/carbon-components.css';
 import './App.css';

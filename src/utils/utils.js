@@ -15,3 +15,17 @@ export const convertToJSON = displayString => displayString.split('\n');
  */
 export const convertToDisplayString = json =>
   json.map(line => line.replace('\n', '').replace('\\', '')).join('\n');
+
+/**
+ * Converts a Swagger object into a file to be downloaded by the user.
+ *
+ * @param {Object} swagger the Swagger object representing the file being modified
+ */
+export const buildSwaggerFile = swagger => {
+  const swaggerFile = new File(
+    [new Blob([JSON.stringify(swagger, null, 2)], {type: 'application/json'})],
+    'new-swagger.json',
+    {type: 'application/json'},
+  );
+  return swaggerFile;
+};

@@ -1,6 +1,16 @@
 
 
 .export-container {
-  padding: 1rem;
-  text-align: right;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.export-button {
+  flex: 1;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  max-width: 60%;
 }
