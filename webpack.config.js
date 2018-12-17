@@ -1,5 +1,6 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const pkg = require('./package.json');
 
 module.exports = {
   entry: [
@@ -8,7 +9,7 @@ module.exports = {
     './src/index.js',
   ],
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.join(__dirname, 'docs'),
     filename: 'bundle.js',
   },
   module: {
@@ -26,9 +27,18 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    contentBase: path.join(__dirname, 'docs'),
+    compress: true,
+    port: 3003,
+  },
+  optimization: {
+    minimize: true,
+  },
   plugins: [
     new HTMLWebpackPlugin({
-      template: './src/index.html',
+      title: `${pkg.name}-v${pkg.version}`,
+      template: './src/index.ejs',
     }),
   ],
 };

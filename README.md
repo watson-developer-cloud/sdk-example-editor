@@ -24,7 +24,7 @@ Start the app in development mode
 ```
 npm start
 ```
-It will open a browser tab that points to `http://localhost:8080`.
+It will open a browser tab that points to `http://localhost:3003`.
 
 ## LICENSE
 MIT
