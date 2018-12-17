@@ -57,7 +57,6 @@
   "devDependencies": {
     "@semantic-release/changelog": "^3.0.1",
     "@semantic-release/git": "^7.0.5",
-    "@semantic-release/npm": "^5.1.2",
     "babel-eslint": "^10.0.1",
     "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
