@@ -1,6 +1,6 @@
 {
   "name": "@watson/sdk-example-editor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Web editor to write SDK examples in a swagger extension",
   "main": "index.js",
   "scripts": {
@@ -77,7 +77,15 @@
     }
   },
   "lint-staged": {
-    "*.js": ["npm run build", "npm run autofix", "git add"],
-    "*.css": ["npm run build", "npm run autofix", "git add"]
+    "*.js": [
+      "npm run build",
+      "npm run autofix",
+      "git add"
+    ],
+    "*.css": [
+      "npm run build",
+      "npm run autofix",
+      "git add"
+    ]
   }
 }
