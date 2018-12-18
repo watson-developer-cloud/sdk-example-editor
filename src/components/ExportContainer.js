@@ -14,6 +14,7 @@ class ExportContainer extends Component {
       <div className="container">
         <Button
           className="button"
+          disabled={swagger == null}
           onClick={() => {
             FileSaver.saveAs(buildSwaggerFile(swagger));
           }}
