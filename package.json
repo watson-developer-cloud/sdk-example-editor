@@ -87,7 +87,6 @@
     ],
     "*.css": [
       "npm run build",
-      "npm run autofix",
       "git add"
     ]
   }
