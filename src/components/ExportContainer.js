@@ -2,11 +2,64 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Button} from 'carbon-components-react';
 import FileSaver from 'file-saver';
+import JSZip from 'jszip';
 import {getSwagger} from '../selectors/index';
-import {buildSwaggerFile} from '../utils/utils';
+import {convertToDisplayString, languageToExtension} from '../utils/utils';
 import './ButtonContainer.css';
 
 class ExportContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.buildOutputFile = this.buildOutputFile.bind(this);
+  }
+
+  buildOutputFile(swagger) {
+    const serviceName = swagger.info.title.toLowerCase().replace(/ /g, '-');
+    const zip = new JSZip();
+    zip.file(
+      `${serviceName}.json`,
+      new Blob([JSON.stringify(swagger, null, 2)], {type: 'application/json'}),
+    );
+
+    const exampleFolder = zip.folder('examples');
+    Object.entries(swagger.paths).forEach(([_, pathInfo]) => {
+      Object.entries(pathInfo).forEach(([_, methodInfo]) => {
+        // this is something we don't want, like a parameters array
+        if (Array.isArray(methodInfo)) {
+          return;
+        }
+
+        const sdkExamples = methodInfo['x-sdk-operations'];
+        if (sdkExamples && sdkExamples['request-examples']) {
+          // create sub-folders for examples in each language
+          Object.entries(sdkExamples['request-examples']).forEach(
+            ([language, languageExample]) => {
+              if (language === 'curl') {
+                return;
+              }
+              const langaugeFolder = exampleFolder.folder(language);
+
+              languageExample.forEach((example, index) => {
+                langaugeFolder.file(
+                  `${methodInfo.operationId}${index > 0 ? index : ''}${
+                    languageToExtension[language]
+                  }`,
+                  new Blob([
+                    convertToDisplayString(example['example'][0]['source']),
+                  ]),
+                );
+              });
+            },
+          );
+        }
+      });
+    });
+
+    zip
+      .generateAsync({type: 'blob'})
+      .then(blob => FileSaver.saveAs(blob, `${serviceName}.zip`));
+  }
+
   render() {
     const {swagger} = this.props;
 
@@ -16,7 +69,7 @@ class ExportContainer extends Component {
           className="button"
           disabled={swagger == null}
           onClick={() => {
-            FileSaver.saveAs(buildSwaggerFile(swagger));
+            this.buildOutputFile(swagger);
           }}
           type="submit"
         >
