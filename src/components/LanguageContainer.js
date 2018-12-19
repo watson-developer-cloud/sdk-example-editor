@@ -22,6 +22,7 @@ class LanguageContainer extends Component {
     return (
       <div className="language-container bx--tile">
         <Select
+          disabled={languages.length === 0}
           hideLabel={false}
           invalidText="A valid value is required"
           helperText="Select the programming language to work with."

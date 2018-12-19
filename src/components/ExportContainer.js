@@ -4,16 +4,17 @@ import {Button} from 'carbon-components-react';
 import FileSaver from 'file-saver';
 import {getSwagger} from '../selectors/index';
 import {buildSwaggerFile} from '../utils/utils';
-import './ExportContainer.css';
+import './ButtonContainer.css';
 
 class ExportContainer extends Component {
   render() {
     const {swagger} = this.props;
 
     return (
-      <div className="export-container">
+      <div className="container">
         <Button
-          className="export-button"
+          className="button"
+          disabled={swagger == null}
           onClick={() => {
             FileSaver.saveAs(buildSwaggerFile(swagger));
           }}
