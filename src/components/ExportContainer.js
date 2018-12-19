@@ -38,16 +38,16 @@ class ExportContainer extends Component {
               }
               const langaugeFolder = exampleFolder.folder(language);
 
-              let blobArray = [];
-              languageExample.forEach(example => {
-                blobArray.push(
-                  convertToDisplayString(example['example'][0]['source']),
+              languageExample.forEach((example, index) => {
+                langaugeFolder.file(
+                  `${methodInfo.operationId}${index > 0 ? index : ''}${
+                    languageToExtension[language]
+                  }`,
+                  new Blob([
+                    convertToDisplayString(example['example'][0]['source']),
+                  ]),
                 );
               });
-              langaugeFolder.file(
-                `${methodInfo.operationId}${languageToExtension[language]}`,
-                new Blob(blobArray),
-              );
             },
           );
         }
