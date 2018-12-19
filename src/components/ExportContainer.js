@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {Button} from 'carbon-components-react';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
-import {getSwagger, getSelectedLanguage} from '../selectors/index';
+import {getSwagger} from '../selectors/index';
+import {convertToDisplayString, languageToExtension} from '../utils/utils';
 import './ButtonContainer.css';
 
 class ExportContainer extends Component {
@@ -12,7 +13,7 @@ class ExportContainer extends Component {
     this.buildOutputFile = this.buildOutputFile.bind(this);
   }
 
-  buildOutputFile(swagger, selectedLanguage) {
+  buildOutputFile(swagger) {
     const zip = new JSZip();
     zip.file(
       'new-swagger.json',
@@ -28,20 +29,26 @@ class ExportContainer extends Component {
         }
 
         const sdkExamples = methodInfo['x-sdk-operations'];
-        if (
-          sdkExamples &&
-          sdkExamples['request-examples'] &&
-          sdkExamples['request-examples'][selectedLanguage]
-        ) {
-          let blobArray = [];
-          sdkExamples['request-examples'][selectedLanguage].forEach(example => {
-            blobArray.push(
-              JSON.stringify(example['example'][0]['source'], null, 2),
-            );
-          });
-          exampleFolder.file(
-            `${methodInfo.operationId}.json`,
-            new Blob(blobArray, {type: 'application/json'}),
+        if (sdkExamples && sdkExamples['request-examples']) {
+          // create sub-folders for examples in each language
+          Object.entries(sdkExamples['request-examples']).forEach(
+            ([language, languageExample]) => {
+              if (language === 'curl') {
+                return;
+              }
+              const langaugeFolder = exampleFolder.folder(language);
+
+              let blobArray = [];
+              languageExample.forEach(example => {
+                blobArray.push(
+                  convertToDisplayString(example['example'][0]['source']),
+                );
+              });
+              langaugeFolder.file(
+                `${methodInfo.operationId}${languageToExtension[language]}`,
+                new Blob(blobArray),
+              );
+            },
           );
         }
       });
@@ -53,7 +60,7 @@ class ExportContainer extends Component {
   }
 
   render() {
-    const {selectedLanguage, swagger} = this.props;
+    const {swagger} = this.props;
 
     return (
       <div className="container">
@@ -61,7 +68,7 @@ class ExportContainer extends Component {
           className="button"
           disabled={swagger == null}
           onClick={() => {
-            this.buildOutputFile(swagger, selectedLanguage);
+            this.buildOutputFile(swagger);
           }}
           type="submit"
         >
@@ -73,7 +80,6 @@ class ExportContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  selectedLanguage: getSelectedLanguage(state),
   swagger: getSwagger(state),
 });
 

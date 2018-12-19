@@ -1,3 +1,11 @@
+export const languageToExtension = {
+  java: '.java',
+  node: '.js',
+  python: '.py',
+  ruby: '.rb',
+  go: '.go',
+};
+
 /**
  * Converts code example String displayed in the UI to a JSON array
  * to be manipulated internally.
