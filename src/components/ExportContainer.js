@@ -57,7 +57,7 @@ class ExportContainer extends Component {
 
     zip
       .generateAsync({type: 'blob'})
-      .then(blob => FileSaver.saveAs(blob, `${serviceName}-examples.zip`));
+      .then(blob => FileSaver.saveAs(blob, `${serviceName}.zip`));
   }
 
   render() {
