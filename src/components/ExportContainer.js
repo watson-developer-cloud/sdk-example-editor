@@ -14,9 +14,10 @@ class ExportContainer extends Component {
   }
 
   buildOutputFile(swagger) {
+    const serviceName = swagger.info.title.toLowerCase().replace(/ /g, '-');
     const zip = new JSZip();
     zip.file(
-      'new-swagger.json',
+      `${serviceName}.json`,
       new Blob([JSON.stringify(swagger, null, 2)], {type: 'application/json'}),
     );
 
@@ -56,7 +57,7 @@ class ExportContainer extends Component {
 
     zip
       .generateAsync({type: 'blob'})
-      .then(blob => FileSaver.saveAs(blob, 'examples.zip'));
+      .then(blob => FileSaver.saveAs(blob, `${serviceName}-examples.zip`));
   }
 
   render() {
