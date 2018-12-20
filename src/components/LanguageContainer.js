@@ -9,7 +9,18 @@ import './LanguageContainer.css';
 class LanguageContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {newLanguage: null};
+    this.state = {newLanguage: ''};
+    this.handleNewLanguage = this.handleNewLanguage.bind(this);
+  }
+
+  handleNewLanguage() {
+    const {addLanguage} = this.props;
+    const {newLanguage} = this.state;
+
+    if (newLanguage.length > 0) {
+      addLanguage(newLanguage.toLowerCase());
+      this.setState({newLanguage: ''});
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -22,7 +33,7 @@ class LanguageContainer extends Component {
   }
 
   render() {
-    const {addLanguage, languages, selectLanguage, swagger} = this.props;
+    const {languages, selectLanguage, swagger} = this.props;
     const {newLanguage} = this.state;
 
     return (
@@ -55,14 +66,18 @@ class LanguageContainer extends Component {
             onChange={event => {
               this.setState({newLanguage: event.target.value});
             }}
+            onKeyDown={event => {
+              if (event.key === 'Enter') {
+                this.handleNewLanguage();
+              }
+            }}
+            value={newLanguage}
           />
           <Button
             className="add-language"
             disabled={swagger == null}
             onClick={() => {
-              if (newLanguage) {
-                addLanguage(newLanguage.toLowerCase());
-              }
+              this.handleNewLanguage();
             }}
           >
             Add
