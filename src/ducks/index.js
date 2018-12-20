@@ -4,6 +4,7 @@ import {convertToJSON} from '../utils/utils';
 export const UPDATE_SWAGGER = 'UPDATE_SWAGGER';
 export const SELECT_LANGUAGE = 'SELECT_LANGUAGE';
 export const UPDATE_EXAMPLE = 'UPDATE_EXAMPLE';
+export const ADD_LANGUAGE = 'ADD_LANGUAGE';
 
 export const defaultState = {
   selectedLanguage: null,
@@ -65,6 +66,17 @@ export default function reducer(state = defaultState, action) {
         swagger: updatedSwagger,
       };
     }
+    case ADD_LANGUAGE: {
+      let updatedSwagger = Object.assign({}, state.swagger);
+      const supportedLanguages =
+        updatedSwagger.info['x-sdk-supported-languages'];
+      supportedLanguages.push(action.language);
+
+      return {
+        ...state,
+        swagger: updatedSwagger,
+      };
+    }
     default: {
       return state;
     }
@@ -87,4 +99,9 @@ export const updateExample = (path, method, language, newCode) => ({
   method,
   language,
   newCode,
+});
+
+export const addLanguage = language => ({
+  type: ADD_LANGUAGE,
+  language,
 });
