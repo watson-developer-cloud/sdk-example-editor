@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Select, SelectItem} from 'carbon-components-react';
-import {getLanguages} from '../selectors';
+import {Button, Select, SelectItem, TextInput} from 'carbon-components-react';
+import {getLanguages, getSwagger} from '../selectors';
 import * as actions from '../ducks';
 
 import './LanguageContainer.css';
@@ -17,7 +17,7 @@ class LanguageContainer extends Component {
   }
 
   render() {
-    const {languages, selectLanguage} = this.props;
+    const {languages, selectLanguage, swagger} = this.props;
 
     return (
       <div className="language-container bx--tile">
@@ -40,6 +40,17 @@ class LanguageContainer extends Component {
             />
           ))}
         </Select>
+        <div className="new-language-container">
+          <TextInput
+            disabled={swagger == null}
+            helperText="The language name will be lowercased and added to the new API definition."
+            id="programming-language-input"
+            labelText="Add new language"
+          />
+          <Button className="add-language" disabled={swagger == null}>
+            Add
+          </Button>
+        </div>
       </div>
     );
   }
@@ -47,6 +58,7 @@ class LanguageContainer extends Component {
 
 const mapStateToProps = state => ({
   languages: getLanguages(state),
+  swagger: getSwagger(state),
 });
 
 const mapDispatchToProps = {
