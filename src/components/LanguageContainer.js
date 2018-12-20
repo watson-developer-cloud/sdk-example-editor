@@ -7,6 +7,11 @@ import * as actions from '../ducks';
 import './LanguageContainer.css';
 
 class LanguageContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {newLanguage: null};
+  }
+
   componentDidUpdate(prevProps) {
     const {languages, selectLanguage} = this.props;
 
@@ -17,7 +22,8 @@ class LanguageContainer extends Component {
   }
 
   render() {
-    const {languages, selectLanguage, swagger} = this.props;
+    const {addLanguage, languages, selectLanguage, swagger} = this.props;
+    const {newLanguage} = this.state;
 
     return (
       <div className="language-container bx--tile">
@@ -46,8 +52,19 @@ class LanguageContainer extends Component {
             helperText="The language name will be lowercased and added to the new API definition."
             id="programming-language-input"
             labelText="Add new language"
+            onChange={event => {
+              this.setState({newLanguage: event.target.value});
+            }}
           />
-          <Button className="add-language" disabled={swagger == null}>
+          <Button
+            className="add-language"
+            disabled={swagger == null}
+            onClick={() => {
+              if (newLanguage) {
+                addLanguage(newLanguage.toLowerCase());
+              }
+            }}
+          >
             Add
           </Button>
         </div>
@@ -62,6 +79,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  addLanguage: actions.addLanguage,
   selectLanguage: actions.selectLanguage,
 };
 
