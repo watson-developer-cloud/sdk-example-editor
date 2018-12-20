@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.1.0...v0.2.0) (2018-12-20)
+
+
+### Features
+
+* **LanguageContainer:** Add language to swagger file on button click ([9e29866](https://github.com/watson-developer-cloud/sdk-example-editor/commit/9e29866))
+
 # [0.1.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.0.4...v0.1.0) (2018-12-19)
 
 
