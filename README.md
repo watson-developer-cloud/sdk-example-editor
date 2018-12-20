@@ -10,7 +10,7 @@
 </p>
 </p>
 
-Demo: https://github.io/watson-developer-cloud/sdk-example-editor
+Demo: https://watson-developer-cloud.github.io/sdk-example-editor/
 
 
 ## Getting Started
