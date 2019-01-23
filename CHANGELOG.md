@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.0...v0.2.1) (2019-01-23)
+
+
+### Bug Fixes
+
+* Add file extensions for some other popular languages ([8308d57](https://github.com/watson-developer-cloud/sdk-example-editor/commit/8308d57))
+
 # [0.2.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.1.0...v0.2.0) (2018-12-20)
 
 
