@@ -4,6 +4,10 @@ export const languageToExtension = {
   python: '.py',
   ruby: '.rb',
   go: '.go',
+  swift: '.swift',
+  dotnet: '.cs',
+  'c#': '.cs',
+  php: '.php',
 };
 
 /**
