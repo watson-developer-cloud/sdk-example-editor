@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.1...v0.2.2) (2019-02-19)
+
+
+### Bug Fixes
+
+* Append newlines to edited example code ([b276ee1](https://github.com/watson-developer-cloud/sdk-example-editor/commit/b276ee1))
+
 ## [0.2.1](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.0...v0.2.1) (2019-01-23)
 
 
