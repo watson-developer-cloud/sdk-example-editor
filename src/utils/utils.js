@@ -17,7 +17,15 @@ export const languageToExtension = {
  * @param {String} displayString the String representing the code
  * example in the UI
  */
-export const convertToJSON = displayString => displayString.split('\n');
+export const convertToJSON = displayString => {
+  const displayStringArray = displayString.split('\n');
+  return displayStringArray.map((line, index) => {
+    if (index === displayStringArray.length - 1) {
+      return line;
+    }
+    return `${line}\n`;
+  });
+};
 
 /**
  * Converts JSON representation of code example to a String to be
