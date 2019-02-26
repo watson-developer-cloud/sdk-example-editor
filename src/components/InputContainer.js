@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {FileUploader, TextInput} from 'carbon-components-react';
-import './InputContainer.css';
+import {FileUploaderButton} from 'carbon-components-react';
+import './ButtonContainer.css';
 import * as actions from '../ducks';
 
 class InputContainer extends Component {
@@ -33,16 +33,11 @@ class InputContainer extends Component {
 
   render() {
     return (
-      <div className="input-container">
-        <FileUploader
-          buttonLabel="Select Swagger file"
-          filenameStatus="edit"
+      <div className="container">
+        <FileUploaderButton
+          labelText="Select Swagger file"
+          className="button"
           onChange={this.handleFileChange}
-        />
-        <TextInput
-          className="url-input"
-          id="url-input"
-          labelText="Add URL for Swagger file"
         />
       </div>
     );

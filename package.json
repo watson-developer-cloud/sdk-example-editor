@@ -1,6 +1,6 @@
 {
   "name": "@watson/sdk-example-editor",
-  "version": "0.0.2",
+  "version": "0.2.2",
   "description": "Web editor to write SDK examples in a swagger extension",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "css-loader": "^2.0.1",
     "file-saver": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "jszip": "^3.1.5",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^6.0.0",
@@ -61,7 +62,7 @@
     "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.10.0",
-    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.2.1",
@@ -86,7 +87,6 @@
     ],
     "*.css": [
       "npm run build",
-      "npm run autofix",
       "git add"
     ]
   }

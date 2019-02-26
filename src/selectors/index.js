@@ -24,12 +24,20 @@ export const getEndpointExamples = createSelector(
 
     Object.entries(swagger.paths).forEach(([path, pathInfo]) => {
       Object.entries(pathInfo).forEach(([method, methodInfo]) => {
-        const languageExamples =
-          methodInfo['x-sdk-operations']['request-examples'][selectedLanguage];
+        // this is something we don't want, like a parameters array
+        if (Array.isArray(methodInfo)) {
+          return;
+        }
+
+        const sdkExamples = methodInfo['x-sdk-operations'];
         let examples = [];
 
-        if (languageExamples) {
-          languageExamples.forEach(example => {
+        if (
+          sdkExamples &&
+          sdkExamples['request-examples'] &&
+          sdkExamples['request-examples'][selectedLanguage]
+        ) {
+          sdkExamples['request-examples'][selectedLanguage].forEach(example => {
             const exampleName = example['name'];
             const codeArray = example['example'][0]['source'];
 

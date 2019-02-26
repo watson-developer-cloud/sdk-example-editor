@@ -1,0 +1,13 @@
+.button {
+  flex: 1;
+  max-width: 25%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 4rem;
+}
