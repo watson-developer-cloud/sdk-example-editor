@@ -1,3 +1,10 @@
+## [0.2.3](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.2...v0.2.3) (2019-04-01)
+
+
+### Bug Fixes
+
+* **ExportContainer:** Fix cases where exporting wasn't working properly ([b4af155](https://github.com/watson-developer-cloud/sdk-example-editor/commit/b4af155))
+
 ## [0.2.2](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.1...v0.2.2) (2019-02-19)
 
 
