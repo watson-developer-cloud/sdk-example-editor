@@ -27,10 +27,20 @@ export default function reducer(state = defaultState, action) {
     }
     case UPDATE_EXAMPLE: {
       let updatedSwagger = Object.assign({}, state.swagger);
+      let operationMethod = updatedSwagger.paths[action.path][action.method];
+      // add surrounding JSON if necessary
+      if (!operationMethod['x-sdk-operations']) {
+        operationMethod = {
+          ...operationMethod,
+          'x-sdk-operations': {
+            'request-examples': {},
+          },
+        };
+      }
+      updatedSwagger.paths[action.path][action.method] = operationMethod;
+
       let requestExamples =
-        updatedSwagger.paths[action.path][action.method]['x-sdk-operations'][
-          'request-examples'
-        ];
+        operationMethod['x-sdk-operations']['request-examples'];
 
       // no example is defined for this language, so we need to add some surrounding JSON first
       if (!requestExamples[action.language]) {
