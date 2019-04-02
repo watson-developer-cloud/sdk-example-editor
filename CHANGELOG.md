@@ -1,3 +1,10 @@
+## [0.2.4](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.3...v0.2.4) (2019-04-02)
+
+
+### Bug Fixes
+
+* Add surrounding JSON structure for operations missing x-sdk-operations ([dcd83c9](https://github.com/watson-developer-cloud/sdk-example-editor/commit/dcd83c9))
+
 ## [0.2.3](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.2...v0.2.3) (2019-04-01)
 
 
