@@ -1,12 +1,13 @@
 import {createSelector} from 'reselect';
 
+export const getHasCurlExamples = state => state.hasCurlExamples;
 export const getSwagger = state => state.swagger;
 export const getSelectedLanguage = state => state.selectedLanguage;
 
 export const getLanguages = createSelector(
   [getSwagger],
   swagger => {
-    if (swagger && swagger.info) {
+    if (swagger && swagger.info && swagger.info['x-sdk-supported-languages']) {
       return swagger.info['x-sdk-supported-languages'];
     }
     return [];
