@@ -58,7 +58,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   updateExample: actions.updateExample,
-  updateSwagger: actions.updateSwagger,
 };
 
 export default connect(
