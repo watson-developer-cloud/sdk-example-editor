@@ -38,6 +38,9 @@ export const getEndpointExamples = createSelector(
           sdkExamples['request-examples'][selectedLanguage]
         ) {
           sdkExamples['request-examples'][selectedLanguage].forEach(example => {
+            if (!example.example) {
+              return;
+            }
             const exampleName = example['name'];
             const codeArray = example['example'][0]['source'];
 
