@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.5...v0.3.0) (2019-04-04)
+
+
+### Features
+
+* Allow for editing of curl commands ([44f153f](https://github.com/watson-developer-cloud/sdk-example-editor/commit/44f153f))
+
 ## [0.2.5](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.4...v0.2.5) (2019-04-04)
 
 
