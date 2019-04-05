@@ -40,13 +40,20 @@ class ExportContainer extends Component {
               const langaugeFolder = exampleFolder.folder(language);
 
               languageExample.forEach((example, index) => {
+                // ignore other examples types like markdown
+                if (!example.example) {
+                  return;
+                }
+                let jsonArray = example['example'][0]['source'];
+                // handle cases where some examples are nested for whatever reason
+                while (Array.isArray(jsonArray[0])) {
+                  jsonArray = jsonArray[0];
+                }
                 langaugeFolder.file(
                   `${methodInfo.operationId}${index > 0 ? index : ''}${
                     languageToExtension[language]
                   }`,
-                  new Blob([
-                    convertToDisplayString(example['example'][0]['source']),
-                  ]),
+                  new Blob([convertToDisplayString(jsonArray)]),
                 );
               });
             },

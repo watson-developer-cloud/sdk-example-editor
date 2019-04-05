@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Button, Select, SelectItem, TextInput} from 'carbon-components-react';
-import {getLanguages, getSwagger} from '../selectors';
+import {getLanguages, getSwagger, getHasCurlExamples} from '../selectors';
 import * as actions from '../ducks';
 
 import './LanguageContainer.css';
@@ -9,7 +9,14 @@ import './LanguageContainer.css';
 class LanguageContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {newLanguage: ''};
+    let dropdownLanguages = this.props.languages.slice();
+    if (this.props.hasCurlExamples) {
+      dropdownLanguages.push('curl');
+    }
+    this.state = {
+      dropdownLanguages,
+      newLanguage: '',
+    };
     this.handleNewLanguage = this.handleNewLanguage.bind(this);
   }
 
@@ -24,22 +31,36 @@ class LanguageContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {languages, selectLanguage} = this.props;
+    const {hasCurlExamples, languages, selectLanguage} = this.props;
+    const {dropdownLanguages} = this.state;
 
-    // when we first get languages, default to first
-    if (prevProps.languages.length === 0 && languages.length > 0) {
-      selectLanguage(languages[0]);
+    if (prevProps.languages !== languages) {
+      let newDropdownLanguages = [];
+      newDropdownLanguages = newDropdownLanguages.concat(languages);
+
+      if (hasCurlExamples) {
+        newDropdownLanguages.push('curl');
+      }
+
+      // when it's brand new, default to first language
+      if (prevProps.languages.length === 0) {
+        selectLanguage(newDropdownLanguages[0]);
+      }
+
+      if (dropdownLanguages !== newDropdownLanguages) {
+        this.setState({dropdownLanguages: newDropdownLanguages});
+      }
     }
   }
 
   render() {
-    const {languages, selectLanguage, swagger} = this.props;
-    const {newLanguage} = this.state;
+    const {selectLanguage, swagger} = this.props;
+    const {dropdownLanguages, newLanguage} = this.state;
 
     return (
       <div className="language-container bx--tile">
         <Select
-          disabled={languages.length === 0}
+          disabled={dropdownLanguages.length === 0}
           hideLabel={false}
           invalidText="A valid value is required"
           helperText="Select the programming language to work with."
@@ -47,9 +68,8 @@ class LanguageContainer extends Component {
             selectLanguage(event.target.value);
           }}
           id="programming-language"
-          defaultValue="java"
         >
-          {languages.map(language => (
+          {dropdownLanguages.map(language => (
             <SelectItem
               key={language}
               text={language.charAt(0).toUpperCase() + language.slice(1)}
@@ -89,6 +109,7 @@ class LanguageContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+  hasCurlExamples: getHasCurlExamples(state),
   languages: getLanguages(state),
   swagger: getSwagger(state),
 });

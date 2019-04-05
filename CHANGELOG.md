@@ -1,3 +1,31 @@
+# [0.3.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.5...v0.3.0) (2019-04-04)
+
+
+### Features
+
+* Allow for editing of curl commands ([44f153f](https://github.com/watson-developer-cloud/sdk-example-editor/commit/44f153f))
+
+## [0.2.5](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.4...v0.2.5) (2019-04-04)
+
+
+### Bug Fixes
+
+* Do safety check before trying to parse language examples ([c3da196](https://github.com/watson-developer-cloud/sdk-example-editor/commit/c3da196))
+
+## [0.2.4](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.3...v0.2.4) (2019-04-02)
+
+
+### Bug Fixes
+
+* Add surrounding JSON structure for operations missing x-sdk-operations ([dcd83c9](https://github.com/watson-developer-cloud/sdk-example-editor/commit/dcd83c9))
+
+## [0.2.3](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.2...v0.2.3) (2019-04-01)
+
+
+### Bug Fixes
+
+* **ExportContainer:** Fix cases where exporting wasn't working properly ([b4af155](https://github.com/watson-developer-cloud/sdk-example-editor/commit/b4af155))
+
 ## [0.2.2](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.1...v0.2.2) (2019-02-19)
 
 
