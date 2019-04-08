@@ -1,3 +1,10 @@
+## [0.3.1](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.3.0...v0.3.1) (2019-04-08)
+
+
+### Bug Fixes
+
+* remove npm release ([9d0a215](https://github.com/watson-developer-cloud/sdk-example-editor/commit/9d0a215))
+
 # [0.3.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.2.5...v0.3.0) (2019-04-04)
 
 
