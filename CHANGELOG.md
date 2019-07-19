@@ -1,3 +1,10 @@
+## [0.3.2](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.3.1...v0.3.2) (2019-07-19)
+
+
+### Bug Fixes
+
+* **extensions:** Add dotnet-standard ([b29f01e](https://github.com/watson-developer-cloud/sdk-example-editor/commit/b29f01e))
+
 ## [0.3.1](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.3.0...v0.3.1) (2019-04-08)
 
 
