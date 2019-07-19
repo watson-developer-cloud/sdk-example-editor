@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {TextArea} from 'carbon-components-react';
-import {solarizedDark} from 'react-syntax-highlighter/dist/styles/hljs';
+import {solarizedDark} from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import {convertToDisplayString} from '../utils/utils';
 import './ExampleCode.css';
 
