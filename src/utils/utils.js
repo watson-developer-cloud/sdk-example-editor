@@ -8,6 +8,7 @@ export const languageToExtension = {
   dotnet: '.cs',
   'c#': '.cs',
   php: '.php',
+  'dotnet-standard': '.cs',
 };
 
 /**
