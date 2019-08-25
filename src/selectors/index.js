@@ -3,6 +3,7 @@ import {createSelector} from 'reselect';
 export const getHasCurlExamples = state => state.hasCurlExamples;
 export const getSwagger = state => state.swagger;
 export const getSelectedLanguage = state => state.selectedLanguage;
+export const isJson = state => state.isJson;
 
 export const getLanguages = createSelector(
   [getSwagger],

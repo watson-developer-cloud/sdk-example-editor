@@ -5,11 +5,13 @@ export const UPDATE_SWAGGER = 'UPDATE_SWAGGER';
 export const SELECT_LANGUAGE = 'SELECT_LANGUAGE';
 export const UPDATE_EXAMPLE = 'UPDATE_EXAMPLE';
 export const ADD_LANGUAGE = 'ADD_LANGUAGE';
+export const IS_JSON = 'IS_JSON';
 
 export const defaultState = {
   hasCurlExamples: false,
   selectedLanguage: null,
   swagger: null,
+  isJson: true,
 };
 
 export default function reducer(state = defaultState, action) {
@@ -40,6 +42,7 @@ export default function reducer(state = defaultState, action) {
       }
 
       return {
+        ...state,
         swagger: action.swagger,
         hasCurlExamples,
       };
@@ -129,6 +132,12 @@ export default function reducer(state = defaultState, action) {
         hasCurlExamples: isCurl || state.hasCurlExamples,
       };
     }
+    case IS_JSON: {
+      return {
+        ...state,
+        isJson: action.isJson,
+      };
+    }
     default: {
       return state;
     }
@@ -156,4 +165,9 @@ export const updateExample = (path, method, language, newCode) => ({
 export const addLanguage = language => ({
   type: ADD_LANGUAGE,
   language,
+});
+
+export const isJson = isJson => ({
+  type: IS_JSON,
+  isJson,
 });
