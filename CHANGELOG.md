@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.3.2...v0.4.0) (2019-08-25)
+
+
+### Features
+
+* add support for YAML files ([b9a036e](https://github.com/watson-developer-cloud/sdk-example-editor/commit/b9a036e))
+
 ## [0.3.2](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.3.1...v0.3.2) (2019-07-19)
 
 
