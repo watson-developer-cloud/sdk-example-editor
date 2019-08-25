@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {Button} from 'carbon-components-react';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
-import {getSwagger} from '../selectors/index';
+import yaml from 'js-yaml';
+import {getSwagger, isJson} from '../selectors/index';
 import {convertToDisplayString, languageToExtension} from '../utils/utils';
 import './ButtonContainer.css';
 
@@ -13,13 +14,25 @@ class ExportContainer extends Component {
     this.buildOutputFile = this.buildOutputFile.bind(this);
   }
 
-  buildOutputFile(swagger) {
+  buildOutputFile(isJson, swagger) {
     const serviceName = swagger.info.title.toLowerCase().replace(/ /g, '-');
     const zip = new JSZip();
-    zip.file(
-      `${serviceName}.json`,
-      new Blob([JSON.stringify(swagger, null, 2)], {type: 'application/json'}),
-    );
+
+    if (isJson) {
+      zip.file(
+        `${serviceName}.json`,
+        new Blob([JSON.stringify(swagger, null, 2)], {
+          type: 'application/json',
+        }),
+      );
+    } else {
+      zip.file(
+        `${serviceName}.yaml`,
+        new Blob([yaml.safeDump(swagger)], {
+          type: 'application/x-yaml',
+        }),
+      );
+    }
 
     const exampleFolder = zip.folder('examples');
     Object.entries(swagger.paths).forEach(([_, pathInfo]) => {
@@ -68,7 +81,7 @@ class ExportContainer extends Component {
   }
 
   render() {
-    const {swagger} = this.props;
+    const {isJson, swagger} = this.props;
 
     return (
       <div className="container">
@@ -76,7 +89,7 @@ class ExportContainer extends Component {
           className="button"
           disabled={swagger == null}
           onClick={() => {
-            this.buildOutputFile(swagger);
+            this.buildOutputFile(isJson, swagger);
           }}
           type="submit"
         >
@@ -88,6 +101,7 @@ class ExportContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+  isJson: isJson(state),
   swagger: getSwagger(state),
 });
 
