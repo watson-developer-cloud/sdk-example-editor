@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Accordion, AccordionItem} from 'carbon-components-react';
 import {getEndpointExamples, getSelectedLanguage} from '../selectors';
 import * as actions from '../ducks';
 import ExampleCode from './ExampleCode';
@@ -14,35 +15,36 @@ class ExamplesContainer extends Component {
     const {endpointExamples, selectedLanguage, updateExample} = this.props;
 
     return (
-      <div className="examples-container">
+      <Accordion>
         {endpointExamples.map(endpoint => (
-          <div
-            className="examples-container__endpoint bx--tile"
-            key={endpoint.operationId}
+          <AccordionItem
+            title={`${endpoint.operationId} - ${endpoint.summary}`}
           >
-            <div className="endpoint-description">
-              <h2>{endpoint.operationId}</h2>
-              <h3>{endpoint.summary}</h3>
+            <div
+              className="examples-container__endpoint bx--tile"
+              key={endpoint.operationId}
+            >
+              {endpoint.examples.map((example, index) => (
+                <ExampleCode
+                  key={example.name}
+                  code={example.code}
+                  name={example.name}
+                  language={selectedLanguage}
+                  onCodeChange={newCodeExample =>
+                    updateExample(
+                      endpoint.path,
+                      endpoint.method,
+                      selectedLanguage,
+                      index,
+                      newCodeExample.target.value,
+                    )
+                  }
+                />
+              ))}
             </div>
-            {endpoint.examples.map(example => (
-              <ExampleCode
-                key={example.name}
-                code={example.code}
-                name={example.name}
-                language={selectedLanguage}
-                onCodeChange={newCodeExample =>
-                  updateExample(
-                    endpoint.path,
-                    endpoint.method,
-                    selectedLanguage,
-                    newCodeExample.target.value,
-                  )
-                }
-              />
-            ))}
-          </div>
+          </AccordionItem>
         ))}
-      </div>
+      </Accordion>
     );
   }
 }

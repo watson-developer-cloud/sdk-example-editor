@@ -92,9 +92,9 @@ export default function reducer(state = defaultState, action) {
         });
       }
 
-      languageExamples[0]['example'][0]['source'] = convertToJSON(
-        action.newCode,
-      );
+      languageExamples[action.exampleIndex]['example'][0][
+        'source'
+      ] = convertToJSON(action.newCode);
       updatedSwagger.paths[action.path][action.method]['x-sdk-operations'][
         'request-examples'
       ][action.language] = languageExamples;
@@ -154,11 +154,18 @@ export const selectLanguage = selectedLanguage => ({
   selectedLanguage,
 });
 
-export const updateExample = (path, method, language, newCode) => ({
+export const updateExample = (
+  path,
+  method,
+  language,
+  exampleIndex,
+  newCode,
+) => ({
   type: UPDATE_EXAMPLE,
   path,
   method,
   language,
+  exampleIndex,
   newCode,
 });
 
