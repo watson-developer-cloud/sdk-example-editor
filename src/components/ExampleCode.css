@@ -4,17 +4,22 @@
   padding: 1rem;
 }
 
-.text-areas {
+.text-area-wrapper {
   display: flex;
+  max-height: 25rem;
 }
 
-.editable-area {
+.text-area {
   flex: 1;
+  padding: .5rem;
 }
 
-.result-area {
-  flex: 1;
-  margin-left: 1rem;
+.text-area > pre {
+  white-space: pre-wrap;
+}
+
+.text-area textarea {
+  resize: none;
 }
 
 .example-container--code {

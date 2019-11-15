@@ -9,20 +9,20 @@ const ExampleCode = ({name, code, language, onCodeChange}) => {
   return (
     <div className="endpoint-example">
       <p>{name}</p>
-      <div className="text-areas">
-        <div className="editable-area">
+      <div className="text-area-wrapper">
+        <div className="text-area">
           <TextArea
             labelText={name}
             hideLabel={true}
             invalidText="A valid code snippet is required"
             placeholder="Type code snippet here..."
             cols={100}
-            rows={20}
+            rows={24}
             onChange={onCodeChange}
             value={convertToDisplayString(code)}
           />
         </div>
-        <div className="result-area">
+        <div className="text-area">
           <SyntaxHighlighter
             className="example-container--code"
             language={language}
