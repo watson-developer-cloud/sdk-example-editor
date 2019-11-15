@@ -1,3 +1,10 @@
+## [0.4.1](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.4.0...v0.4.1) (2019-11-15)
+
+
+### Bug Fixes
+
+* allow for editing of multiple examples for a single endpoint ([c985e06](https://github.com/watson-developer-cloud/sdk-example-editor/commit/c985e06f66d8a1a02f21a0229eed65525e1356a9))
+
 # [0.4.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.3.2...v0.4.0) (2019-08-25)
 
 
