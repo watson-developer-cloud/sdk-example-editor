@@ -24,7 +24,7 @@ class ExamplesContainer extends Component {
               <h2>{endpoint.operationId}</h2>
               <h3>{endpoint.summary}</h3>
             </div>
-            {endpoint.examples.map(example => (
+            {endpoint.examples.map((example, index) => (
               <ExampleCode
                 key={example.name}
                 code={example.code}
@@ -35,6 +35,7 @@ class ExamplesContainer extends Component {
                     endpoint.path,
                     endpoint.method,
                     selectedLanguage,
+                    index,
                     newCodeExample.target.value,
                   )
                 }
