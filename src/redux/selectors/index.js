@@ -1,26 +1,26 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 
-export const getHasCurlExamples = state => state.hasCurlExamples;
-export const getSwagger = state => state.swagger;
-export const getSelectedLanguage = state => state.selectedLanguage;
-export const isJson = state => state.isJson;
+const getSelectedLanguage = (state) => state.selectedLanguage;
+const getSelectedSwagger = (state) => state.byId[state.selectedId];
 
-export const getLanguages = createSelector(
-  [getSwagger],
-  swagger => {
-    if (swagger && swagger.info && swagger.info['x-sdk-supported-languages']) {
-      return swagger.info['x-sdk-supported-languages'];
-    }
-    return [];
-  },
-);
+export const getIsJson = (state) =>
+  state.selectedId && state.selectedId.split('.').pop() === 'json';
+
+export const getIsSwagger = createSelector([getSelectedSwagger], (swagger) => {
+  return !!swagger?.info;
+});
+
+const emptyArray = [];
+export const getLanguages = createSelector([getSelectedSwagger], (swagger) => {
+  return swagger?.info?.['x-sdk-supported-languages'] ?? emptyArray;
+});
 
 export const getEndpointExamples = createSelector(
-  [getSwagger, getSelectedLanguage],
-  (swagger, selectedLanguage) => {
+  [getSelectedSwagger, getSelectedLanguage, getIsSwagger],
+  (swagger, selectedLanguage, isSwagger) => {
     const endpointExamples = [];
 
-    if (!swagger || !selectedLanguage) {
+    if (!isSwagger) {
       return endpointExamples;
     }
 
@@ -34,12 +34,16 @@ export const getEndpointExamples = createSelector(
         const sdkExamples = methodInfo['x-sdk-operations'];
         let examples = [];
 
+        const language = isSwagger
+          ? selectedLanguage
+          : Object.keys(sdkExamples['request-examples'])[0];
+
         if (
           sdkExamples &&
           sdkExamples['request-examples'] &&
           sdkExamples['request-examples'][selectedLanguage]
         ) {
-          sdkExamples['request-examples'][selectedLanguage].forEach(example => {
+          sdkExamples['request-examples'][language].forEach((example) => {
             if (!example.example) {
               return;
             }
@@ -73,5 +77,5 @@ export const getEndpointExamples = createSelector(
       });
     });
     return endpointExamples;
-  },
+  }
 );

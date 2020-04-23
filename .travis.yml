@@ -1,11 +1,17 @@
 language: node_js
-node_js: "10"
+node_js: '12'
 script:
-- npm run build
-- npm run test
+  - npm run build
+  - npm run test
 deploy:
-- provider: script
-  skip_cleanup: true
-  script: npx semantic-release
-  on:
-    node: 10
+  - provider: script
+    skip_cleanup: true
+    script: npx semantic-release
+    on:
+      node: 12
+  - provider: script
+    skip_cleanup: true
+    script: npm run deploy
+    on:
+      node: 12
+      master: master

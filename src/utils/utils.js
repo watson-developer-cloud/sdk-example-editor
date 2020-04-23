@@ -18,7 +18,7 @@ export const languageToExtension = {
  * @param {String} displayString the String representing the code
  * example in the UI
  */
-export const convertToJSON = displayString => {
+export const convertToJSON = (displayString) => {
   const displayStringArray = displayString.split('\n');
   return displayStringArray.map((line, index) => {
     if (index === displayStringArray.length - 1) {
@@ -34,5 +34,5 @@ export const convertToJSON = displayString => {
  *
  * @param {Object} json JSON array of the lines of the code example
  */
-export const convertToDisplayString = json =>
-  json.map(line => line.replace('\n', '').replace('\\', '')).join('\n');
+export const convertToDisplayString = (json) =>
+  json.map((line) => line.replace('\n', '').replace('\\', '')).join('\n');

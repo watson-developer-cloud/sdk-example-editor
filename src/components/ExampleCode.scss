@@ -6,7 +6,6 @@
 
 .text-area-wrapper {
   display: flex;
-  max-height: 25rem;
 }
 
 .text-area {
@@ -14,7 +13,7 @@
   padding: .5rem;
 }
 
-.text-area > pre {
+.text-area>pre {
   white-space: pre-wrap;
 }
 

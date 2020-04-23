@@ -1,125 +1,98 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Button, Select, SelectItem, TextInput} from 'carbon-components-react';
-import {getLanguages, getSwagger, getHasCurlExamples} from '../selectors';
-import * as actions from '../ducks';
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { Link, Modal, TextInput, Dropdown } from 'carbon-components-react';
 
-import './LanguageContainer.css';
+import { getLanguages, getIsSwagger } from '../redux/selectors';
+import { selectLanguage } from '../redux/ducks';
 
-class LanguageContainer extends Component {
-  constructor(props) {
-    super(props);
-    let dropdownLanguages = this.props.languages.slice();
-    if (this.props.hasCurlExamples) {
-      dropdownLanguages.push('curl');
-    }
-    this.state = {
-      dropdownLanguages,
-      newLanguage: '',
-    };
-    this.handleNewLanguage = this.handleNewLanguage.bind(this);
+import { addLanguage } from '../redux/ducks';
+
+import './LanguageContainer.scss';
+
+export default function LanguageContainer() {
+  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [language, setLanguage] = useState('');
+
+  const { languages, selectedLanguage, isSwagger } = useSelector(
+    (state) => ({
+      languages: getLanguages(state),
+      selectedLanguage: state.selectedLanguage,
+      isSwagger: getIsSwagger(state),
+    }),
+    shallowEqual
+  );
+  const onNewLanguage = useCallback(() => {
+    setIsModalOpen(false);
+    dispatch(addLanguage(language.trim()));
+  }, [dispatch, language]);
+
+  const handleLanguageSelection = useCallback(
+    ({ selectedItem }) => {
+      setIsModalOpen(false);
+      dispatch(selectLanguage(selectedItem));
+    },
+    [dispatch]
+  );
+
+  if (!isSwagger) {
+    return null;
   }
-
-  handleNewLanguage() {
-    const {addLanguage} = this.props;
-    const {newLanguage} = this.state;
-
-    if (newLanguage.length > 0) {
-      addLanguage(newLanguage.toLowerCase());
-      this.setState({newLanguage: ''});
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    const {hasCurlExamples, languages, selectLanguage} = this.props;
-    const {dropdownLanguages} = this.state;
-
-    if (prevProps.languages !== languages) {
-      let newDropdownLanguages = [];
-      newDropdownLanguages = newDropdownLanguages.concat(languages);
-
-      if (hasCurlExamples) {
-        newDropdownLanguages.push('curl');
-      }
-
-      // when it's brand new, default to first language
-      if (prevProps.languages.length === 0) {
-        selectLanguage(newDropdownLanguages[0]);
-      }
-
-      if (dropdownLanguages !== newDropdownLanguages) {
-        this.setState({dropdownLanguages: newDropdownLanguages});
-      }
-    }
-  }
-
-  render() {
-    const {selectLanguage, swagger} = this.props;
-    const {dropdownLanguages, newLanguage} = this.state;
-
-    return (
-      <div className="language-container bx--tile">
-        <Select
-          disabled={dropdownLanguages.length === 0}
-          hideLabel={false}
+  return (
+    <div className="language">
+      <div className="language__selector">
+        <Dropdown
+          ariaLabel="Languages"
+          direction="bottom"
+          helperText="Select the language to work with."
+          id="swagger-language-dropdown"
           invalidText="A valid value is required"
-          helperText="Select the programming language to work with."
-          onChange={event => {
-            selectLanguage(event.target.value);
-          }}
-          id="programming-language"
-        >
-          {dropdownLanguages.map(language => (
-            <SelectItem
-              key={language}
-              text={language.charAt(0).toUpperCase() + language.slice(1)}
-              value={language}
-            />
-          ))}
-        </Select>
-        <div className="new-language-container">
-          <TextInput
-            disabled={swagger == null}
-            helperText="The language name will be lowercased and added to the new API definition."
-            id="programming-language-input"
-            labelText="Add new language"
-            onChange={event => {
-              this.setState({newLanguage: event.target.value});
-            }}
-            onKeyDown={event => {
-              if (event.key === 'Enter') {
-                this.handleNewLanguage();
-              }
-            }}
-            value={newLanguage}
-          />
-          <Button
-            className="add-language"
-            disabled={swagger == null}
-            onClick={() => {
-              this.handleNewLanguage();
-            }}
-          >
-            Add
-          </Button>
-        </div>
+          items={languages}
+          label="Language selection"
+          selectedItem={selectedLanguage ?? ''}
+          onChange={handleLanguageSelection}
+        />
       </div>
-    );
-  }
+      <div className="language__actions">
+        <Link
+          href="#"
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
+        >
+          Add language
+        </Link>
+      </div>
+      <Modal
+        hasForm
+        iconDescription="Close"
+        modalAriaLabel="Add a new language"
+        modalHeading="Add language"
+        modalLabel="Language"
+        primaryButtonDisabled={
+          language.trim() === '' || languages.includes(language)
+        }
+        onRequestSubmit={onNewLanguage}
+        onSecondarySubmit={() => {
+          setIsModalOpen(false);
+        }}
+        open={isModalOpen}
+        primaryButtonText="Add"
+        secondaryButtonText="Cancel"
+        selectorPrimaryFocus="#text-input-1"
+      >
+        <TextInput
+          id="text-input-1"
+          labelText="Name"
+          invalid={languages.includes(language)}
+          onChange={(e) => {
+            setLanguage(e.target.value);
+          }}
+          invalidText="Language already exists"
+          placeholder="Type the language name..."
+          type="text"
+        />
+      </Modal>
+    </div>
+  );
 }
-
-const mapStateToProps = state => ({
-  hasCurlExamples: getHasCurlExamples(state),
-  languages: getLanguages(state),
-  swagger: getSwagger(state),
-});
-
-const mapDispatchToProps = {
-  addLanguage: actions.addLanguage,
-  selectLanguage: actions.selectLanguage,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LanguageContainer);

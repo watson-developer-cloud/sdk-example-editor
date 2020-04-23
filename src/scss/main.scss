@@ -1,0 +1,13 @@
+$font-path: "~carbon-components/src/globals/fonts";
+
+@import "~@carbon/themes/scss/themes";
+$carbon--theme: $carbon--theme--g10;
+@include carbon--theme();
+
+// vendor imports
+@import '~@carbon/layout/scss/layout';
+@import '~@carbon/grid/scss/grid';
+
+@import '~carbon-components/scss/globals/scss/styles';
+
+@import "./globals";

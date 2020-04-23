@@ -12,21 +12,22 @@
 
 Demo: https://watson-developer-cloud.github.io/sdk-example-editor/
 
-
 ## Getting Started
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/watson-developer-cloud/sdk-example-editor.svg)](https://greenkeeper.io/)
-
 Install the dependencies
+
 ```
 npm install
 ```
 
 Start the app in development mode
+
 ```
 npm start
 ```
+
 It will open a browser tab that points to `http://localhost:3003`.
 
 ## LICENSE
+
 MIT

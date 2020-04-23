@@ -1,33 +1,29 @@
-import React, {Component} from 'react';
-import ExamplesContainer from './ExamplesContainer';
-import ExportContainer from './ExportContainer';
-import LanguageContainer from './LanguageContainer';
-import '../../node_modules/carbon-components/css/carbon-components.css';
-import './App.css';
+import React, { Component } from 'react';
 import InputContainer from './InputContainer';
+import {
+  Header,
+  HeaderName,
+} from 'carbon-components-react/lib/components/UIShell';
+
+import FileList from './FileList';
+
+import './App.scss';
 
 export class App extends Component {
   render() {
     return (
-      <div className="bx--grid">
-        <div className="bx--row">
-          <div className="bx--col-xs-12 bx--col-md-12">
-            <InputContainer />
-          </div>
-        </div>
-        <div className="bx--row">
-          <div className="bx--col-xs-12 bx--col-md-12">
-            <LanguageContainer />
-          </div>
-        </div>
-        <div className="bx--row">
-          <div className="bx--col-xs-12 bx--col-md-12">
-            <ExamplesContainer />
-          </div>
-        </div>
-        <div className="bx--row">
-          <div className="bx--col-xs-12 bx--col-md-12">
-            <ExportContainer />
+      <div className="App">
+        <Header aria-label="IBM Examples Editor">
+          <HeaderName href="#" prefix="IBM">
+            SDK Examples Editor
+          </HeaderName>
+        </Header>
+        <div className="bx--grid App__content">
+          <div className="bx--row">
+            <div className="bx--col">
+              <InputContainer />
+              <FileList />
+            </div>
           </div>
         </div>
       </div>
