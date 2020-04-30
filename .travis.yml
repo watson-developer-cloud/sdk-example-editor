@@ -9,9 +9,12 @@ deploy:
     script: npx semantic-release
     on:
       node: 12
-  - provider: script
+  - provider: pages
     skip_cleanup: true
-    script: npm run deploy
+    local_dir: build
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    email: watdevex@us.ibm.com
+    name: Watson Github Bot
     on:
-      node: 12
-      master: master
+      branch: master
