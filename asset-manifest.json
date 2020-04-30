@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/sdk-example-editor/static/css/main.6fb2686e.chunk.css",
+    "main.js": "/sdk-example-editor/static/js/main.729caebf.chunk.js",
+    "main.js.map": "/sdk-example-editor/static/js/main.729caebf.chunk.js.map",
+    "runtime-main.js": "/sdk-example-editor/static/js/runtime-main.1296ef5e.js",
+    "runtime-main.js.map": "/sdk-example-editor/static/js/runtime-main.1296ef5e.js.map",
+    "static/js/2.0610ee3d.chunk.js": "/sdk-example-editor/static/js/2.0610ee3d.chunk.js",
+    "static/js/2.0610ee3d.chunk.js.map": "/sdk-example-editor/static/js/2.0610ee3d.chunk.js.map",
+    "index.html": "/sdk-example-editor/index.html",
+    "precache-manifest.bbf1af7d0707fa61dc5ad82fea675571.js": "/sdk-example-editor/precache-manifest.bbf1af7d0707fa61dc5ad82fea675571.js",
+    "service-worker.js": "/sdk-example-editor/service-worker.js",
+    "static/css/main.6fb2686e.chunk.css.map": "/sdk-example-editor/static/css/main.6fb2686e.chunk.css.map",
+    "static/js/2.0610ee3d.chunk.js.LICENSE.txt": "/sdk-example-editor/static/js/2.0610ee3d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1296ef5e.js",
+    "static/js/2.0610ee3d.chunk.js",
+    "static/css/main.6fb2686e.chunk.css",
+    "static/js/main.729caebf.chunk.js"
+  ]
+}
