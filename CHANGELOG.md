@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.4.1...v0.5.0) (2020-04-30)
+
+
+### Features
+
+* move to create react app and carbon 10 ([80c0ec3](https://github.com/watson-developer-cloud/sdk-example-editor/commit/80c0ec3cbb97d392d48e58fdf19bfdafa58fac4b))
+
 ## [0.4.1](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.4.0...v0.4.1) (2019-11-15)
 
 
