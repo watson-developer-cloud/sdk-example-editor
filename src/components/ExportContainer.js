@@ -1,36 +1,40 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Button} from 'carbon-components-react';
+import React, { useCallback } from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
+import { Button } from 'carbon-components-react';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 import yaml from 'js-yaml';
-import {getSwagger, isJson} from '../selectors/index';
-import {convertToDisplayString, languageToExtension} from '../utils/utils';
-import './ButtonContainer.css';
 
-class ExportContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.buildOutputFile = this.buildOutputFile.bind(this);
-  }
+import { getIsJson } from '../redux/selectors';
 
-  buildOutputFile(isJson, swagger) {
-    const serviceName = swagger.info.title.toLowerCase().replace(/ /g, '-');
+import { convertToDisplayString, languageToExtension } from '../utils/utils';
+
+export default function ExportContainer() {
+  const { swagger, selectedId, isJson } = useSelector(
+    (state) => ({
+      swagger: state.byId[state.selectedId],
+      selectedId: state.selectedId,
+      isJson: getIsJson(state),
+    }),
+    shallowEqual
+  );
+
+  const buildOutputFile = useCallback(() => {
     const zip = new JSZip();
 
     if (isJson) {
       zip.file(
-        `${serviceName}.json`,
+        selectedId,
         new Blob([JSON.stringify(swagger, null, 2)], {
           type: 'application/json',
-        }),
+        })
       );
     } else {
       zip.file(
-        `${serviceName}.yaml`,
+        selectedId,
         new Blob([yaml.safeDump(swagger)], {
           type: 'application/x-yaml',
-        }),
+        })
       );
     }
 
@@ -66,43 +70,25 @@ class ExportContainer extends Component {
                   `${methodInfo.operationId}${index > 0 ? index : ''}${
                     languageToExtension[language]
                   }`,
-                  new Blob([convertToDisplayString(jsonArray)]),
+                  new Blob([convertToDisplayString(jsonArray)])
                 );
               });
-            },
+            }
           );
         }
       });
     });
 
     zip
-      .generateAsync({type: 'blob'})
-      .then(blob => FileSaver.saveAs(blob, `${serviceName}.zip`));
-  }
+      .generateAsync({ type: 'blob' })
+      .then((blob) => FileSaver.saveAs(blob, `${selectedId}.zip`));
+  }, [isJson, selectedId, swagger]);
 
-  render() {
-    const {isJson, swagger} = this.props;
-
-    return (
-      <div className="container">
-        <Button
-          className="button"
-          disabled={swagger == null}
-          onClick={() => {
-            this.buildOutputFile(isJson, swagger);
-          }}
-          type="submit"
-        >
-          Download
-        </Button>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Button className="button" onClick={buildOutputFile} type="submit">
+        Download
+      </Button>
+    </div>
+  );
 }
-
-const mapStateToProps = state => ({
-  isJson: isJson(state),
-  swagger: getSwagger(state),
-});
-
-export default connect(mapStateToProps)(ExportContainer);

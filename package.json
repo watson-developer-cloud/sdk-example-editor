@@ -1,23 +1,29 @@
 {
   "name": "@watson/sdk-example-editor",
   "version": "0.3.0",
+  "private": true,
+  "homepage": "https://watson-developer-cloud.github.io/sdk-example-editor",
   "description": "Web editor to write SDK examples in a swagger extension",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "commit": "git-cz",
-    "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack-cli --mode production",
     "validate": "npm ls",
     "lint": "eslint .",
     "autofix": "eslint . --fix",
     "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
-    "test": "npm run lint",
-    "precommit": "lint-staged"
+    "prettier": "prettier --write \"{src,test}/**/*.{js,json}\"",
+    "precommit": "lint-staged",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "IBM Corp",
   "license": "MIT",
   "engines": {
-    "node": ">=8.0"
+    "node": ">=12.0"
   },
   "repository": {
     "type": "git",
@@ -27,48 +33,52 @@
     "url": "https://github.com/watson-developer-cloud/sdk-example-editor/issues"
   },
   "dependencies": {
-    "@babel/cli": "^7.6.0",
-    "@babel/core": "^7.6.0",
-    "@babel/polyfill": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.6",
-    "carbon-components": "^9.91.4",
-    "carbon-components-react": "^6.115.5",
+    "@carbon/grid": "^10.3.0",
+    "@carbon/icons-react": "^10.10.2",
+    "@carbon/themes": "^10.11.2",
+    "@reduxjs/toolkit": "^1.3.5",
+    "@welldone-software/why-did-you-render": "^4.1.3",
+    "carbon-components": "^10.11.2",
+    "carbon-components-react": "^7.11.3",
     "carbon-icons": "^7.0.7",
-    "css-loader": "^3.2.0",
     "file-saver": "^2.0.2",
-    "html-webpack-plugin": "^3.2.0",
     "js-yaml": "^3.13.1",
-    "jszip": "^3.2.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-redux": "^7.1.1",
-    "react-syntax-highlighter": "^11.0.2",
-    "redux": "^4.0.4",
+    "jszip": "^3.4.0",
+    "node-sass": "^4.14.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-dropzone": "^11.0.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "react-syntax-highlighter": "^12.2.1",
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
     "reselect": "^4.0.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.0"
+    "use-resize-observer": "^6.1.0-alpha.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^3.0.4",
-    "@semantic-release/git": "^7.0.16",
-    "babel-eslint": "^10.0.3",
-    "commitizen": "^4.0.3",
-    "cz-conventional-changelog": "^3.0.2",
-    "eslint": "^6.3.0",
-    "eslint-config-prettier": "^6.2.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.3",
-    "husky": "^3.0.5",
-    "lint-staged": "^9.2.5",
-    "prettier": "^1.18.2"
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.3",
+    "@testing-library/user-event": "^10.1.0",
+    "babel-eslint": "^10.1.0",
+    "commitizen": "^4.0.4",
+    "cz-conventional-changelog": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.19.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.0",
+    "prettier": "^2.0.5",
+    "prettier-eslint-cli": "^5.0.0"
   },
   "config": {
     "commitizen": {
@@ -82,13 +92,26 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run build",
       "npm run autofix",
       "git add"
     ],
     "*.css": [
-      "npm run build",
       "git add"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   }
 }

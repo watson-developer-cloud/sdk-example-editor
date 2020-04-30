@@ -1,42 +1,52 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Accordion, AccordionItem} from 'carbon-components-react';
-import {getEndpointExamples, getSelectedLanguage} from '../selectors';
-import * as actions from '../ducks';
+import React from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { Accordion, AccordionItem } from 'carbon-components-react';
 import ExampleCode from './ExampleCode';
 
-import './ExamplesContainer.css';
+import { getEndpointExamples } from '../redux/selectors';
 
-class ExamplesContainer extends Component {
-  constructor(props) {
-    super(props);
+import { updateExample } from '../redux/ducks';
+
+import './ExamplesContainer.scss';
+
+const ExamplesContainer = () => {
+  const dispatch = useDispatch();
+
+  const { endpointExamples, selectedLanguage } = useSelector(
+    (state) => ({
+      endpointExamples: getEndpointExamples(state),
+      selectedLanguage: state.selectedLanguage,
+    }),
+    shallowEqual
+  );
+
+  if (!selectedLanguage) {
+    return null;
   }
-  render() {
-    const {endpointExamples, selectedLanguage, updateExample} = this.props;
-
-    return (
+  return (
+    <div>
       <Accordion>
-        {endpointExamples.map(endpoint => (
+        {endpointExamples.map((endpoint) => (
           <AccordionItem
-            title={`${endpoint.operationId} - ${endpoint.summary}`}
+            key={endpoint.operationId}
+            title={endpoint.operationId}
           >
-            <div
-              className="examples-container__endpoint bx--tile"
-              key={endpoint.operationId}
-            >
+            <div className="examples-container__endpoint">
               {endpoint.examples.map((example, index) => (
                 <ExampleCode
                   key={example.name}
                   code={example.code}
                   name={example.name}
                   language={selectedLanguage}
-                  onCodeChange={newCodeExample =>
-                    updateExample(
-                      endpoint.path,
-                      endpoint.method,
-                      selectedLanguage,
-                      index,
-                      newCodeExample.target.value,
+                  onCodeChange={(newCodeExample) =>
+                    dispatch(
+                      updateExample({
+                        path: endpoint.path,
+                        method: endpoint.method,
+                        language: selectedLanguage,
+                        index: index,
+                        newCodeExample: newCodeExample.target.value,
+                      })
                     )
                   }
                 />
@@ -45,24 +55,8 @@ class ExamplesContainer extends Component {
           </AccordionItem>
         ))}
       </Accordion>
-    );
-  }
-}
-
-ExamplesContainer.defaultProps = {
-  endpointExamples: [],
+    </div>
+  );
 };
 
-const mapStateToProps = state => ({
-  endpointExamples: getEndpointExamples(state),
-  selectedLanguage: getSelectedLanguage(state),
-});
-
-const mapDispatchToProps = {
-  updateExample: actions.updateExample,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ExamplesContainer);
+export default ExamplesContainer;

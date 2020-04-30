@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {TextArea} from 'carbon-components-react';
-import {solarizedDark} from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import {convertToDisplayString} from '../utils/utils';
-import './ExampleCode.css';
+import { TextArea } from 'carbon-components-react';
+import { solarizedDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { convertToDisplayString } from '../utils/utils';
 
-const ExampleCode = ({name, code, language, onCodeChange}) => {
+import './ExampleCode.scss';
+
+const ExampleCode = ({ name, code, language, onCodeChange }) => {
   return (
     <div className="endpoint-example">
       <p>{name}</p>
@@ -16,8 +17,8 @@ const ExampleCode = ({name, code, language, onCodeChange}) => {
             hideLabel={true}
             invalidText="A valid code snippet is required"
             placeholder="Type code snippet here..."
-            cols={100}
-            rows={24}
+            cols={80}
+            rows={20}
             onChange={onCodeChange}
             value={convertToDisplayString(code)}
           />

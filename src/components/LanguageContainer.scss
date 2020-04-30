@@ -1,0 +1,14 @@
+.language {
+  display: flex;
+  align-items: flex-end;
+
+  &__selector {
+    max-width: 25rem;
+    flex: 1 1 auto;
+  }
+
+  &__actions {
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+  }
+}
