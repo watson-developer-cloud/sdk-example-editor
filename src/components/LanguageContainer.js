@@ -35,9 +35,6 @@ export default function LanguageContainer() {
     [dispatch]
   );
 
-  if (!isSwagger) {
-    return null;
-  }
   return (
     <div className="language">
       <div className="language__selector">
@@ -55,6 +52,7 @@ export default function LanguageContainer() {
       </div>
       <div className="language__actions">
         <Link
+          disabled={!isSwagger}
           href="#"
           onClick={() => {
             setIsModalOpen(true);

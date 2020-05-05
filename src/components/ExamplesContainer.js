@@ -20,9 +20,6 @@ const ExamplesContainer = () => {
     shallowEqual
   );
 
-  if (!selectedLanguage) {
-    return null;
-  }
   return (
     <div>
       <Accordion>
