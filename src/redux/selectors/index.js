@@ -12,17 +12,42 @@ export const getIsSwagger = createSelector([getSelectedSwagger], (swagger) => {
 
 const emptyArray = [];
 export const getLanguages = createSelector([getSelectedSwagger], (swagger) => {
-  return swagger?.info?.['x-sdk-supported-languages'] ?? emptyArray;
+  if (swagger?.info) {
+    return swagger?.info?.['x-sdk-supported-languages'] ?? emptyArray;
+  }
+
+  const languageByName = {};
+
+  Object.entries(swagger.paths).forEach(([path, pathInfo]) => {
+    Object.entries(pathInfo).forEach(([method, methodInfo]) => {
+      // this is something we don't want, like a parameters array
+      if (Array.isArray(methodInfo)) {
+        return;
+      }
+      const examples = methodInfo?.['x-sdk-operations']?.['request-examples'];
+      if (!examples) {
+        return;
+      }
+
+      languageByName[Object.keys(examples)[0]] = true;
+    });
+  });
+
+  const languages = Object.keys(languageByName);
+
+  if (languages.length > 1) {
+    throw Error(
+      `Multiple languages found in swagger file. Found: ${languages.join(',')}`
+    );
+  }
+
+  return languages || emptyArray;
 });
 
 export const getEndpointExamples = createSelector(
   [getSelectedSwagger, getSelectedLanguage, getIsSwagger],
   (swagger, selectedLanguage, isSwagger) => {
     const endpointExamples = [];
-
-    if (!isSwagger) {
-      return endpointExamples;
-    }
 
     Object.entries(swagger.paths).forEach(([path, pathInfo]) => {
       Object.entries(pathInfo).forEach(([method, methodInfo]) => {
@@ -38,11 +63,7 @@ export const getEndpointExamples = createSelector(
           ? selectedLanguage
           : Object.keys(sdkExamples['request-examples'])[0];
 
-        if (
-          sdkExamples &&
-          sdkExamples['request-examples'] &&
-          sdkExamples['request-examples'][selectedLanguage]
-        ) {
+        if (sdkExamples?.['request-examples']?.[language]) {
           sdkExamples['request-examples'][language].forEach((example) => {
             if (!example.example) {
               return;

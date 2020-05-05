@@ -18,7 +18,7 @@ const loadFilesReducer = (state, action) => {
     state.byId[name] = swagger;
     state.allIds = Object.keys(state.byId).sort();
     state.selectedId = name;
-    state.selectLanguage = null;
+    state.selectedLanguage = null;
   });
 };
 
@@ -106,6 +106,7 @@ const filesSlice = createSlice({
     selectFile: (state, action) => {
       const id = action.payload;
       state.selectedId = id;
+      state.selectedLanguage = null;
     },
     selectLanguage: (state, action) => {
       state.selectedLanguage = action.payload;
