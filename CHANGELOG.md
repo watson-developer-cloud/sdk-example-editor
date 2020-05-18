@@ -1,3 +1,10 @@
+## [0.5.1](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.5.0...v0.5.1) (2020-05-05)
+
+
+### Bug Fixes
+
+* **sdk-examples:** load files with only 1 language ([63cbeb5](https://github.com/watson-developer-cloud/sdk-example-editor/commit/63cbeb5bd45bf5538668a524bba58097ee1c9936))
+
 # [0.5.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.4.1...v0.5.0) (2020-04-30)
 
 
