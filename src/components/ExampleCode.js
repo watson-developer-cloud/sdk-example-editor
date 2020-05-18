@@ -7,6 +7,7 @@ import { convertToDisplayString } from '../utils/utils';
 import './ExampleCode.scss';
 
 const ExampleCode = ({ name, code, language, onCodeChange }) => {
+  const _language = language === 'dotnet-standard' ? 'cs' : language;
   return (
     <div className="endpoint-example">
       <p>{name}</p>
@@ -26,7 +27,7 @@ const ExampleCode = ({ name, code, language, onCodeChange }) => {
         <div className="text-area">
           <SyntaxHighlighter
             className="example-container--code"
-            language={language}
+            language={_language}
             style={solarizedDark}
           >
             {convertToDisplayString(code)}
@@ -43,4 +44,14 @@ ExampleCode.defaultProps = {
   updateExample: () => {},
 };
 
-export default ExampleCode;
+function exampleCodePropsAreEqual(prevMovie, nextMovie) {
+  return (
+    prevMovie.title === nextMovie.title &&
+    prevMovie.releaseDate === nextMovie.releaseDate
+  );
+}
+
+export default React.memo(
+  ExampleCode,
+  (prev, next) => prev.code === next.code && prev.language === next.language
+);

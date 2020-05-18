@@ -1,11 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Accordion, AccordionItem } from 'carbon-components-react';
+
 import ExampleCode from './ExampleCode';
 
 import { getEndpointExamples } from '../redux/selectors';
-
 import { updateExample } from '../redux/ducks';
+
+import { convertToDisplayString } from '../utils/utils';
 
 import './ExamplesContainer.scss';
 
@@ -19,6 +21,22 @@ const ExamplesContainer = () => {
     }),
     shallowEqual
   );
+
+  const onCodeChange = (endpoint, example, index) => (e) => {
+    const codeExample = convertToDisplayString(example.code);
+    const newCodeExample = e.target.value;
+    if (newCodeExample !== codeExample) {
+      dispatch(
+        updateExample({
+          path: endpoint.path,
+          method: endpoint.method,
+          language: selectedLanguage,
+          index: index,
+          newCodeExample,
+        })
+      );
+    }
+  };
 
   return (
     <div>
@@ -35,17 +53,7 @@ const ExamplesContainer = () => {
                   code={example.code}
                   name={example.name}
                   language={selectedLanguage}
-                  onCodeChange={(newCodeExample) =>
-                    dispatch(
-                      updateExample({
-                        path: endpoint.path,
-                        method: endpoint.method,
-                        language: selectedLanguage,
-                        index: index,
-                        newCodeExample: newCodeExample.target.value,
-                      })
-                    )
-                  }
+                  onCodeChange={onCodeChange(endpoint, example, index)}
                 />
               ))}
             </div>

@@ -41,9 +41,12 @@ export default function InputContainer() {
       <div className="file-input__dropbox" {...getRootProps()}>
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p>Drop the SDK examples here ...</p>
+          <p>Drag the file here.</p>
         ) : (
-          <p>Drag 'n' drop some SDK examples here, or click to select files</p>
+          <p>
+            Drag an OpenAPI file or an extracted example file here, or click to
+            select.
+          </p>
         )}
       </div>
     </section>

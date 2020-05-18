@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import yaml from 'js-yaml';
 
 import { convertToJSON } from '../../utils/utils';
+import { getLanguages } from '../selectors';
 
 const loadFilesReducer = (state, action) => {
   const files = action.payload;
@@ -18,8 +19,9 @@ const loadFilesReducer = (state, action) => {
     state.byId[name] = swagger;
     state.allIds = Object.keys(state.byId).sort();
     state.selectedId = name;
-    state.selectedLanguage = null;
   });
+  const languages = getLanguages(state);
+  state.selectedLanguage = languages[0] ?? null;
 };
 
 const updateExampleReducer = (state, action) => {
@@ -106,7 +108,9 @@ const filesSlice = createSlice({
     selectFile: (state, action) => {
       const id = action.payload;
       state.selectedId = id;
-      state.selectedLanguage = null;
+
+      const languages = getLanguages(state);
+      state.selectedLanguage = languages[0] ?? null;
     },
     selectLanguage: (state, action) => {
       state.selectedLanguage = action.payload;
