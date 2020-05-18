@@ -1,3 +1,11 @@
+## [0.5.2](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.5.1...v0.5.2) (2020-05-18)
+
+
+### Bug Fixes
+
+* prevent double encoding ([3c33b3c](https://github.com/watson-developer-cloud/sdk-example-editor/commit/3c33b3c08d342fae6a97132fe55759cbd614f786))
+* remove extra function from examplecode ([4f42315](https://github.com/watson-developer-cloud/sdk-example-editor/commit/4f42315207e42d611917786019820421ce130757))
+
 ## [0.5.1](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.5.0...v0.5.1) (2020-05-05)
 
 
