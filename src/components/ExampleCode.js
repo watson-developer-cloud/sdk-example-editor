@@ -44,13 +44,6 @@ ExampleCode.defaultProps = {
   updateExample: () => {},
 };
 
-function exampleCodePropsAreEqual(prevMovie, nextMovie) {
-  return (
-    prevMovie.title === nextMovie.title &&
-    prevMovie.releaseDate === nextMovie.releaseDate
-  );
-}
-
 export default React.memo(
   ExampleCode,
   (prev, next) => prev.code === next.code && prev.language === next.language
