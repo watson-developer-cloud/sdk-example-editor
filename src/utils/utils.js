@@ -34,5 +34,8 @@ export const convertToJSON = (displayString) => {
  *
  * @param {Object} json JSON array of the lines of the code example
  */
-export const convertToDisplayString = (json) =>
-  json.map((line) => line.replace('\n', '').replace('\\', '')).join('\n');
+export const convertToDisplayString = (json) => {
+  return json
+    .map((line) => line.replace('\n', '').replace('\\\\', '\\'))
+    .join('\n');
+};

@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import union from 'lodash.union';
 
 const getSelectedLanguage = (state) => state.selectedLanguage;
 const getSelectedSwagger = (state) => state.byId[state.selectedId];
@@ -10,14 +11,8 @@ export const getIsSwagger = createSelector([getSelectedSwagger], (swagger) => {
   return !!swagger?.info;
 });
 
-const emptyArray = [];
 export const getLanguages = createSelector([getSelectedSwagger], (swagger) => {
-  if (swagger?.info) {
-    return swagger?.info?.['x-sdk-supported-languages'] ?? emptyArray;
-  }
-
-  const languageByName = {};
-
+  let languages = swagger?.info?.['x-sdk-supported-languages'] ?? [];
   Object.entries(swagger.paths).forEach(([path, pathInfo]) => {
     Object.entries(pathInfo).forEach(([method, methodInfo]) => {
       // this is something we don't want, like a parameters array
@@ -29,19 +24,11 @@ export const getLanguages = createSelector([getSelectedSwagger], (swagger) => {
         return;
       }
 
-      languageByName[Object.keys(examples)[0]] = true;
+      languages = union(languages, Object.keys(examples));
     });
   });
-
-  const languages = Object.keys(languageByName);
-
-  if (languages.length > 1) {
-    throw Error(
-      `Multiple languages found in swagger file. Found: ${languages.join(',')}`
-    );
-  }
-
-  return languages || emptyArray;
+  languages = languages.sort();
+  return languages;
 });
 
 export const getEndpointExamples = createSelector(
