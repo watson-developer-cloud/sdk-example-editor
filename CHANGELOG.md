@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.5.2...v0.6.0) (2020-05-20)
+
+
+### Features
+
+* Allow users to clear the localstorage ([23db399](https://github.com/watson-developer-cloud/sdk-example-editor/commit/23db3993b2da399b76cab340be9fe919cd58c8b9))
+
 ## [0.5.2](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.5.1...v0.5.2) (2020-05-18)
 
 
