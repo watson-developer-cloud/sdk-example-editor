@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { Dropdown } from 'carbon-components-react';
+import { Dropdown, Link } from 'carbon-components-react';
 import File from './File';
 
-import { selectFile } from '../redux/ducks';
+import { selectFile, clearFiles } from '../redux/ducks';
 
 import './FileList.scss';
 
@@ -17,6 +17,10 @@ export default function FileList() {
     }),
     shallowEqual
   );
+
+  const onClearClick = useCallback(() => {
+    dispatch(clearFiles());
+  }, [dispatch]);
 
   const handleFileSelection = useCallback(
     ({ selectedItem }) => {
@@ -45,7 +49,12 @@ export default function FileList() {
           type="default"
         />
       </div>
-      {selectedId && <File />}
+      <div className="file-list__clear">
+        <Link href="#" onClick={onClearClick}>
+          Clear
+        </Link>
+      </div>
+      <div className="file-list__file">{selectedId && <File />}</div>
     </section>
   );
 }

@@ -1,8 +1,23 @@
 .file-list {
   padding-bottom: 2rem;
   padding-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
 
   &__selector {
     max-width: 25rem;
+    flex: 1 1 auto;
+  }
+
+  &__clear {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 1rem;
+    padding-bottom: 0.7rem;
+  }
+
+  &__file {
+    flex: 1 1 100%
   }
 }

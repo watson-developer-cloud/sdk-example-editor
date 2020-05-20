@@ -115,6 +115,14 @@ const filesSlice = createSlice({
     selectLanguage: (state, action) => {
       state.selectedLanguage = action.payload;
     },
+    clearFiles: () => {
+      return {
+        byId: {},
+        allIds: [],
+        selectedId: null,
+        selectedLanguage: null,
+      };
+    },
   },
 });
 // Extract the action creators object and the reducer
@@ -126,6 +134,7 @@ export const {
   selectLanguage,
   updateExample,
   addLanguage,
+  clearFiles,
 } = actions;
 // Export the reducer, either as a default or named export
 export default reducer;
