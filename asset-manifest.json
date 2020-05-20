@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/sdk-example-editor/static/css/main.b82012ac.chunk.css",
-    "main.js": "/sdk-example-editor/static/js/main.8a5cfddd.chunk.js",
-    "main.js.map": "/sdk-example-editor/static/js/main.8a5cfddd.chunk.js.map",
+    "main.css": "/sdk-example-editor/static/css/main.6b960c46.chunk.css",
+    "main.js": "/sdk-example-editor/static/js/main.de4059ef.chunk.js",
+    "main.js.map": "/sdk-example-editor/static/js/main.de4059ef.chunk.js.map",
     "runtime-main.js": "/sdk-example-editor/static/js/runtime-main.1296ef5e.js",
     "runtime-main.js.map": "/sdk-example-editor/static/js/runtime-main.1296ef5e.js.map",
     "static/js/2.6baecb7c.chunk.js": "/sdk-example-editor/static/js/2.6baecb7c.chunk.js",
     "static/js/2.6baecb7c.chunk.js.map": "/sdk-example-editor/static/js/2.6baecb7c.chunk.js.map",
     "index.html": "/sdk-example-editor/index.html",
-    "precache-manifest.4299d1ebbfa2898cc8665d5fd8b432b1.js": "/sdk-example-editor/precache-manifest.4299d1ebbfa2898cc8665d5fd8b432b1.js",
+    "precache-manifest.be2cc34ab534732caa9a5710bd143e81.js": "/sdk-example-editor/precache-manifest.be2cc34ab534732caa9a5710bd143e81.js",
     "service-worker.js": "/sdk-example-editor/service-worker.js",
-    "static/css/main.b82012ac.chunk.css.map": "/sdk-example-editor/static/css/main.b82012ac.chunk.css.map",
+    "static/css/main.6b960c46.chunk.css.map": "/sdk-example-editor/static/css/main.6b960c46.chunk.css.map",
     "static/js/2.6baecb7c.chunk.js.LICENSE.txt": "/sdk-example-editor/static/js/2.6baecb7c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.1296ef5e.js",
     "static/js/2.6baecb7c.chunk.js",
-    "static/css/main.b82012ac.chunk.css",
-    "static/js/main.8a5cfddd.chunk.js"
+    "static/css/main.6b960c46.chunk.css",
+    "static/js/main.de4059ef.chunk.js"
   ]
 }
