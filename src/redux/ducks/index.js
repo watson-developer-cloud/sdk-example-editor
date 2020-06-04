@@ -10,10 +10,15 @@ const loadFilesReducer = (state, action) => {
     const isJson = name.split('.').pop() === 'json';
     let swagger;
 
-    if (isJson) {
-      swagger = JSON.parse(content);
-    } else {
-      swagger = yaml.safeLoad(content);
+    try {
+      if (isJson) {
+        swagger = JSON.parse(content);
+      } else {
+        swagger = yaml.safeLoad(content);
+      }
+    } catch (e) {
+      console.log('malformed swagger', e);
+      return;
     }
 
     state.byId[name] = swagger;
