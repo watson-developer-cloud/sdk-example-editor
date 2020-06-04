@@ -1,3 +1,10 @@
+## [0.6.1](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.6.0...v0.6.1) (2020-06-04)
+
+
+### Bug Fixes
+
+* ignore malformed swaggers ([6efae73](https://github.com/watson-developer-cloud/sdk-example-editor/commit/6efae73ab3c510e78d415d499afab99bca983ee4))
+
 # [0.6.0](https://github.com/watson-developer-cloud/sdk-example-editor/compare/v0.5.2...v0.6.0) (2020-05-20)
 
 
