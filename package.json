@@ -43,7 +43,7 @@
     "carbon-icons": "^7.0.7",
     "file-saver": "^2.0.2",
     "js-yaml": "^3.13.1",
-    "jszip": "^3.4.0",
+    "jszip": "^3.7.0",
     "lodash.union": "^4.6.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
